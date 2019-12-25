@@ -3,6 +3,16 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
 import GameBoard from './gameBoard.jsx';
 
+import Game from "./../API/game";
+import { Player } from "../API/player";
+
+const mainDiv = {
+  height: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
+};
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +21,7 @@ class Main extends Component {
     }
     this.chooseNumOfPlayers = React.createRef();
     this.buildBoardBtn = React.createRef();
+    this.game = new Game();
   }
 
   onStart = e => {
@@ -18,9 +29,24 @@ class Main extends Component {
     this.chooseNumOfPlayers.current.style.display = "inline-flex";
   };
 
-  onPlayerInit = e => {
+  onPlayerInit = key => {
     this.chooseNumOfPlayers.current.style.display = "none";
     this.buildBoardBtn.current.style.display = "inline-flex";
+    // eslint-disable-next-line default-case
+    switch (key) {
+      case 1:
+        this.game.player1 = new Player(1);
+        this.game.player2 = new Player(2);
+        break;
+      case 2:
+        this.game.player1 = new Player(1);
+        this.game.player2 = new Player(2);
+        break;
+    }
+  };
+
+  handleDefBoard = () => {
+    this.game.initBoard();
   };
   handleSubmit=()=>{
     this.setState({boardOn:!this.state.boardOn})
@@ -39,12 +65,12 @@ class Main extends Component {
         <ButtonGroup
           size="lg"
           ref={this.chooseNumOfPlayers}
-          style={{ display: "none" }}>
-
-          <Button variant="outline-dark" onClick={e => this.onPlayerInit(e)}>
+          style={{ display: "none" }}
+        >
+          <Button variant="outline-dark" onClick={e => this.onPlayerInit(1)}>
             P vs P
           </Button>
-          <Button variant="outline-dark" onClick={e => this.onPlayerInit(e)}>
+          <Button variant="outline-dark" onClick={e => this.onPlayerInit(2)}>
             P vs Computer
           </Button>
         </ButtonGroup>
@@ -52,9 +78,11 @@ class Main extends Component {
         <ButtonGroup
           size="lg"
           ref={this.buildBoardBtn}
-          style={{ display: "none" }}>
-
-          <Button variant="outline-dark">Default Board (6X7)</Button>
+          style={{ display: "none" }}
+        >
+          <Button variant="outline-dark" onClick={this.handleDefBoard}>
+            Default Board (6X7)
+          </Button>
           {/* <Button variant="outline-dark">Custom Board </Button> */}
           <Dropdown>
             <Dropdown.Toggle
