@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Main from './components/main';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const h1Style = {
+  fontSize: "4.5rem",
+  fontFamily: "cursive",
+  margin: "10px 0",
+  position: "absolute",
+  width: "100%"
+};
+
+class App extends Component {
+
+  render() {
+    return (
+      <div className="App">
+        <h1 style={h1Style}>4 In a Row</h1>
+        <Main />
+      </div>
+    );
+  }
 }
 
 export default App;
