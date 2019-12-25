@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
-
-const mainDiv = {
-  height: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
+import GameBoard from './gameBoard.jsx';
 
 class Main extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      boardOn:false
+    }
     this.chooseNumOfPlayers = React.createRef();
     this.buildBoardBtn = React.createRef();
   }
@@ -25,10 +22,16 @@ class Main extends Component {
     this.chooseNumOfPlayers.current.style.display = "none";
     this.buildBoardBtn.current.style.display = "inline-flex";
   };
+  handleSubmit=()=>{
+    this.setState({boardOn:!this.state.boardOn})
+  }
 
   render() {
     return (
-      <div style={mainDiv}>
+      
+      <div style={mainDivStyle}>
+        {!this.state.boardOn ?
+        <div>
         <Button variant="outline-dark" onClick={e => this.onStart(e)}>
           Start
         </Button>
@@ -36,8 +39,8 @@ class Main extends Component {
         <ButtonGroup
           size="lg"
           ref={this.chooseNumOfPlayers}
-          style={{ display: "none" }}
-        >
+          style={{ display: "none" }}>
+
           <Button variant="outline-dark" onClick={e => this.onPlayerInit(e)}>
             P vs P
           </Button>
@@ -49,8 +52,8 @@ class Main extends Component {
         <ButtonGroup
           size="lg"
           ref={this.buildBoardBtn}
-          style={{ display: "none" }}
-        >
+          style={{ display: "none" }}>
+
           <Button variant="outline-dark">Default Board (6X7)</Button>
           {/* <Button variant="outline-dark">Custom Board </Button> */}
           <Dropdown>
@@ -64,15 +67,30 @@ class Main extends Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              <form onSubmit={this.handleSubmit} action="">
+                <input id='rowsInput' placeholder='Number of Rows' type="text"/>
+                <input id='columnsInput' style={{margin:'25px 0'}} placeholder='Number of Columns' type="text"/>
+                <div style={{display:'flex',justifyContent:'center'}}>
+                  <input value='submit' type="submit"/>
+                </div>
+              </form>
             </Dropdown.Menu>
           </Dropdown>
         </ButtonGroup>
+        </div>
+        :<GameBoard/>}
       </div>
     );
   }
 }
 
 export default Main;
+
+//styling
+
+const mainDivStyle = {
+  height: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
+};

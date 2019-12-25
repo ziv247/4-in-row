@@ -7,7 +7,6 @@ const h1Style = {
   fontSize: "4.5rem",
   fontFamily: "cursive",
   margin: "10px 0",
-  position: "absolute",
   width: "100%"
 };
 
