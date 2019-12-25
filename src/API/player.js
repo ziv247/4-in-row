@@ -6,11 +6,9 @@ class Player {
     insertToken = (colIndex) => { return Boolean };
 }
 
-class ComputerPlayer extends Player{
-    constructor(color){
-       super(color);
-    }
-    insertToken = () =>{return Boolean};
+class ComputerPlayer extends Player {
+
+    insertToken = () => { return Boolean };
 }
 
-export {Player,ComputerPlayer}
+export { Player, ComputerPlayer }
