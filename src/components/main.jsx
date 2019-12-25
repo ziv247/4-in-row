@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
+import GameBoard from './gameBoard.jsx';
 
 import Game from "./../API/game";
 import { Player } from "../API/player";
@@ -15,6 +16,9 @@ const mainDiv = {
 class Main extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      boardOn:false
+    }
     this.chooseNumOfPlayers = React.createRef();
     this.buildBoardBtn = React.createRef();
     this.game = new Game();
@@ -44,10 +48,16 @@ class Main extends Component {
   handleDefBoard = () => {
     this.game.initBoard();
   };
+  handleSubmit=()=>{
+    this.setState({boardOn:!this.state.boardOn})
+  }
 
   render() {
     return (
-      <div style={mainDiv}>
+      
+      <div style={mainDivStyle}>
+        {!this.state.boardOn ?
+        <div>
         <Button variant="outline-dark" onClick={e => this.onStart(e)}>
           Start
         </Button>
@@ -85,13 +95,30 @@ class Main extends Component {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <div></div>
+              <form onSubmit={this.handleSubmit} action="">
+                <input id='rowsInput' placeholder='Number of Rows' type="text"/>
+                <input id='columnsInput' style={{margin:'25px 0'}} placeholder='Number of Columns' type="text"/>
+                <div style={{display:'flex',justifyContent:'center'}}>
+                  <input value='submit' type="submit"/>
+                </div>
+              </form>
             </Dropdown.Menu>
           </Dropdown>
         </ButtonGroup>
+        </div>
+        :<GameBoard/>}
       </div>
     );
   }
 }
 
 export default Main;
+
+//styling
+
+const mainDivStyle = {
+  height: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
+};
