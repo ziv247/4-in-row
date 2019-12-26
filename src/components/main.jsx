@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
-import GameBoard from './gameBoard.jsx';
+import GameBoard from "./gameBoard.jsx";
 
 import Game from "./../API/game";
 import { Player } from "../API/player";
 
 const mainDiv = {
-  height: "100vh",
+  height: "83vh",
   display: "flex",
   justifyContent: "center",
   alignItems: "center"
@@ -16,9 +16,10 @@ const mainDiv = {
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      boardOn:false
-    }
+    this.state = {
+      boardOn: false,
+      board: []
+    };
     this.chooseNumOfPlayers = React.createRef();
     this.buildBoardBtn = React.createRef();
     this.game = new Game();
@@ -46,67 +47,92 @@ class Main extends Component {
   };
 
   handleDefBoard = () => {
-    this.game.initBoard();
+    this.setState({
+      board: this.game.initBoard(),
+      boardOn: !this.state.boardOn
+    });
   };
-  handleSubmit=()=>{
-    this.setState({boardOn:!this.state.boardOn})
-  }
+  handleSubmit = () => {
+    this.setState({
+      board: this.game.initBoard(),
+      boardOn: !this.state.boardOn
+    });
+  };
 
   render() {
     return (
-      
       <div style={mainDivStyle}>
-        {!this.state.boardOn ?
-        <div>
-        <Button variant="outline-dark" onClick={e => this.onStart(e)}>
-          Start
-        </Button>
+        {!this.state.boardOn ? (
+          <div>
+            <Button variant="outline-dark" onClick={e => this.onStart(e)}>
+              Start
+            </Button>
 
-        <ButtonGroup
-          size="lg"
-          ref={this.chooseNumOfPlayers}
-          style={{ display: "none" }}
-        >
-          <Button variant="outline-dark" onClick={e => this.onPlayerInit(1)}>
-            P vs P
-          </Button>
-          <Button variant="outline-dark" onClick={e => this.onPlayerInit(2)}>
-            P vs Computer
-          </Button>
-        </ButtonGroup>
-
-        <ButtonGroup
-          size="lg"
-          ref={this.buildBoardBtn}
-          style={{ display: "none" }}
-        >
-          <Button variant="outline-dark" onClick={this.handleDefBoard}>
-            Default Board (6X7)
-          </Button>
-          {/* <Button variant="outline-dark">Custom Board </Button> */}
-          <Dropdown>
-            <Dropdown.Toggle
-              variant="outline-dark"
-              id="dropdown-basic"
+            <ButtonGroup
               size="lg"
-              style={{ borderBottomLeftRadius: "0", borderTopLeftRadius: "0" }}
+              ref={this.chooseNumOfPlayers}
+              style={{ display: "none" }}
             >
-              Custom Board
-            </Dropdown.Toggle>
+              <Button
+                variant="outline-dark"
+                onClick={e => this.onPlayerInit(1)}
+              >
+                P vs P
+              </Button>
+              <Button
+                variant="outline-dark"
+                onClick={e => this.onPlayerInit(2)}
+              >
+                P vs Computer
+              </Button>
+            </ButtonGroup>
 
-            <Dropdown.Menu>
-              <form onSubmit={this.handleSubmit} action="">
-                <input id='rowsInput' placeholder='Number of Rows' type="text"/>
-                <input id='columnsInput' style={{margin:'25px 0'}} placeholder='Number of Columns' type="text"/>
-                <div style={{display:'flex',justifyContent:'center'}}>
-                  <input value='submit' type="submit"/>
-                </div>
-              </form>
-            </Dropdown.Menu>
-          </Dropdown>
-        </ButtonGroup>
-        </div>
-        :<GameBoard/>}
+            <ButtonGroup
+              size="lg"
+              ref={this.buildBoardBtn}
+              style={{ display: "none" }}
+            >
+              <Button variant="outline-dark" onClick={this.handleDefBoard}>
+                Default Board (6X7)
+              </Button>
+              {/* <Button variant="outline-dark">Custom Board </Button> */}
+              <Dropdown>
+                <Dropdown.Toggle
+                  variant="outline-dark"
+                  id="dropdown-basic"
+                  size="lg"
+                  style={{
+                    borderBottomLeftRadius: "0",
+                    borderTopLeftRadius: "0"
+                  }}
+                >
+                  Custom Board
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <form onSubmit={this.handleSubmit} action="">
+                    <input
+                      id="rowsInput"
+                      placeholder="Number of Rows"
+                      type="text"
+                    />
+                    <input
+                      id="columnsInput"
+                      style={{ margin: "25px 0" }}
+                      placeholder="Number of Columns"
+                      type="text"
+                    />
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <input value="submit" type="submit" />
+                    </div>
+                  </form>
+                </Dropdown.Menu>
+              </Dropdown>
+            </ButtonGroup>
+          </div>
+        ) : (
+          <GameBoard matrix={this.state.board} />
+        )}
       </div>
     );
   }

@@ -1,43 +1,47 @@
-
-import React from 'react';
-class GameBoard extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-
-        }
-    }
-    render(){
-        const matrix=[
-            [[],[],[],[],[],[]],
-            [[],[],[],[],[],[]],
-            [[],[],[],[],[],[]],
-            [[],[],[],[],[],[]],
-            [[],[],[],[],[],[]],
-            [[],[],[],[],[],[]],
-            [[],[],[],[],[],[]]
-        ]
-        return(
-            <div>
-                {
-                  matrix.map((cell,c)=>
-                  <div>
-                    <div style={{display:'flex',flexWrap:'wrap'}}>
-                        {cell.map((innerCell,i)=>{
-                             return(
-                                <div style={{background:'black',width:'100px',height:'100px',marginTop:'0 auto'}}>
-                                    <div style={{background:'white',width:'75px',height:'75px',borderRadius:'100%'}}></div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                    
-                  </div>
-                  )  
-                }
-
-            </div>
-        );
-    }
+import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
+class GameBoard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      matrix: props.matrix
+    };
+    console.log(props.matrix);
+  }
+  render() {
+    // const matrix = [
+    //   [0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0, 0],
+    //   [0, 0, 1, 0, 0, 0]
+    // ];
+    return (
+      <Container>
+        {this.state.matrix.map((cell, c) => (
+          <Row>
+            {/* <Col style={{ display: "flex", flexWrap: "wrap" }}> */}
+            {cell.map((innerCell, i) => {
+              let cellColor =
+                innerCell == 0 ? "white" : innerCell == 1 ? "red" : "yellow";
+              return (
+                <Col style={{ backgroundColor: "black" }}>
+                  <div
+                    style={{
+                      background: cellColor,
+                      width: "80px",
+                      height: "80px",
+                      borderRadius: "100%",
+                      margin: "10px auto"
+                    }}
+                  />
+                </Col>
+              );
+            })}
+          </Row>
+        ))}
+      </Container>
+    );
+  }
 }
 export default GameBoard;
