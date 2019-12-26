@@ -7,7 +7,8 @@ const h1Style = {
   fontSize: "4.5rem",
   fontFamily: "cursive",
   margin: "10px 0",
-  width: "100%"
+  width: "100%",
+  position:'absolute'
 };
 
 class App extends Component {
@@ -16,7 +17,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1 style={h1Style}>4 In a Row</h1>
-        <Main />
+        <Main/>
       </div>
     );
   }

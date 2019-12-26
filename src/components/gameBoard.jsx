@@ -1,4 +1,4 @@
-
+import {Container,Row,Col} from 'react-bootstrap';
 import React from 'react';
 class GameBoard extends React.Component{
     constructor(props){
@@ -21,18 +21,18 @@ class GameBoard extends React.Component{
             <div>
                 {
                   matrix.map((cell,c)=>
-                  <div>
-                    <div style={{display:'flex',flexWrap:'wrap'}}>
+                  <Container>
+                    <Row style={{display:'flex',flexWrap:'wrap'}}>
                         {cell.map((innerCell,i)=>{
                              return(
-                                <div style={{background:'black',width:'100px',height:'100px',marginTop:'0 auto'}}>
-                                    <div style={{background:'white',width:'75px',height:'75px',borderRadius:'100%'}}></div>
-                                </div>
+                                <Col style={blackSquareStyle}>
+                                    <div style={{background:'white',width:'50px',height:'50px',borderRadius:'100%'}}></div>
+                                </Col>
                             );
                         })}
-                    </div>
+                    </Row>
                     
-                  </div>
+                  </Container>
                   )  
                 }
 
@@ -41,3 +41,5 @@ class GameBoard extends React.Component{
     }
 }
 export default GameBoard;
+
+const blackSquareStyle={background:'black',marginTop:'0 auto',display:'flex',justifyContent:'center',alignItems:'center'}
