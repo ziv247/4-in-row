@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
 import GameBoard from "./gameBoard.jsx";
+import "../style/style.css";
 
 import Game from "./../API/game";
 import { Player } from "../API/player";
@@ -64,7 +65,11 @@ class Main extends Component {
       <div style={mainDivStyle}>
         {!this.state.boardOn ? (
           <div>
-            <Button variant="outline-dark" onClick={e => this.onStart(e)}>
+            <Button
+              variant="outline-dark"
+              onClick={e => this.onStart(e)}
+              className="mainBtn"
+            >
               Start
             </Button>
 
@@ -76,12 +81,14 @@ class Main extends Component {
               <Button
                 variant="outline-dark"
                 onClick={e => this.onPlayerInit(1)}
+                className="mainBtn"
               >
                 P vs P
               </Button>
               <Button
                 variant="outline-dark"
                 onClick={e => this.onPlayerInit(2)}
+                className="mainBtn"
               >
                 P vs Computer
               </Button>
@@ -92,15 +99,19 @@ class Main extends Component {
               ref={this.buildBoardBtn}
               style={{ display: "none" }}
             >
-              <Button variant="outline-dark" onClick={this.handleDefBoard}>
+              <Button
+                variant="outline-dark"
+                onClick={this.handleDefBoard}
+                className="mainBtn"
+              >
                 Default Board (6X7)
               </Button>
-              {/* <Button variant="outline-dark">Custom Board </Button> */}
+
               <Dropdown>
                 <Dropdown.Toggle
                   variant="outline-dark"
                   id="dropdown-basic"
-                  size="lg"
+                  className="mainBtn"
                   style={{
                     borderBottomLeftRadius: "0",
                     borderTopLeftRadius: "0"
@@ -143,7 +154,7 @@ export default Main;
 //styling
 
 const mainDivStyle = {
-  height: "100vh",
+  height: "85vh",
   display: "flex",
   justifyContent: "center",
   alignItems: "center"
