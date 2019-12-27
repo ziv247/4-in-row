@@ -8,7 +8,6 @@ const h1Style = {
   fontFamily: "cursive",
   margin: "10px 0",
   width: "100%",
-  position:'absolute'
 };
 
 class App extends Component {

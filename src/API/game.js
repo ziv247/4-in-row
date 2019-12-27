@@ -24,7 +24,7 @@ class Game {
 
     initBoard = (row = 6, column = 7) => {
         this.board = new Board(row, column);
-        console.log(this.board.board)
+        return this.board.board;
     };
 
     insertion = (colIndex) => {

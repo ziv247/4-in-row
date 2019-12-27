@@ -5,6 +5,8 @@ class Board {
         this.winRow = false;
         this.winColumn = false;
         this.winDiagonal = false;
+        this.row=row;
+        this.column=column;
     }
 
     initBoard = (row, column) => {
@@ -39,8 +41,8 @@ class Board {
 
 
     checkForWin = () => {
-        this.checkRows();
-        this.checkColumns();
+        this.checkRows(this.row);
+        this.checkColumns(this.column);
         this.checkDiagonals();
         if (this.winRow || this.winColumn || this.winDiagonal) {
             if (this.winRow && !this.winColumn && !this.winDiagonal) {
