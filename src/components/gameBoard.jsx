@@ -17,7 +17,9 @@ class GameBoard extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container style={{position:'relative'}}>
+        <Button onClick={this.props.handleDefBoard} style={resetButtonStyle} as="input" type="reset" value="Back to Main Menu"/>
+        <ScoreBoard/>
         {this.state.matrix.map((cell, rowIndex) => (
           <Row style={{ margin: "auto", maxWidth: "88vh" }}>
             {cell.map((innerCell, columnIndex) => {

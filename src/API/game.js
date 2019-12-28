@@ -27,14 +27,15 @@ class Game {
         return this.board.board;
     };
 
-    insertion = (rowIndex, colIndex) => {
+    insertion = (rowIndex, colIndex,winEvent) => {
         const playerKey = this.currentPlayer.key;
         const successfullInsertRow = this.board.move(colIndex, playerKey);
         if (successfullInsertRow) {
             const isWinStr = this.board.checkForWin(rowIndex, colIndex, playerKey);
             console.log(isWinStr);
             if (isWinStr) {
-                alert("Victory!");
+                winEvent(this.currentPlayer)
+                // alert("Victory!");
             }
             this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
             return true;

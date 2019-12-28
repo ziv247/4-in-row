@@ -6,7 +6,7 @@ class ScoreBoard extends React.Component {
     }
     render() {
         return(
-            <div style={{position:'absolute',top:'-35%',left:'1%'}} class="score-board">
+            <div style={{position:'absolute',top:'-30%',left:'-5%'}} class="score-board">
                 <div class="player">
                     <h4>Player 1</h4>
                     <div class="score-box">
