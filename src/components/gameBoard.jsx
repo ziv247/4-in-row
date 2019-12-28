@@ -1,6 +1,7 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col,Button } from "react-bootstrap";
 import "../style/square.css";
+import ScoreBoard from './scoreBoard.jsx';
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
@@ -55,3 +56,9 @@ class GameBoard extends React.Component {
   }
 }
 export default GameBoard;
+
+const resetButtonStyle={
+  position:'absolute',
+  top:'-20%',
+  right:'2%',
+}

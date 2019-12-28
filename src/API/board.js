@@ -17,7 +17,7 @@ class Board {
                 rows.push(0);
             }
             board.push(rows);
-        }
+        } 
         this.board = board;
     }
 
