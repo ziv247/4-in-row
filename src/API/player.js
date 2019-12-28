@@ -1,6 +1,6 @@
 class Player {
-    constructor(color) {
-        this.color = color;
+    constructor(key) {
+        this.key = key;
         this.turnCounter = 0;
     }
     insertToken = (colIndex) => { return Boolean };
