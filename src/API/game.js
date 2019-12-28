@@ -12,28 +12,29 @@ class Game {
 
     setPlayers = (numOfPlayers) => {
         if (numOfPlayers == 1) {
-            this.player1 = new Player('red');
-            this.player2 = new ComputerPlayer('yellow');
+            this.player1 = new Player(1);
+            this.player2 = new ComputerPlayer(2);
         } else {
-            this.player1 = new Player('red');
-            this.player2 = new Player('yellow');
+            this.player1 = new Player(1);
+            this.player2 = new Player(2);
         }
         console.log(this.player1, this.player2);
         this.currentPlayer = this.player1;
     };
 
-    initBoard = (row = 7, column = 6) => {
+    initBoard = (row, column) => {
         this.board = new Board(column, row);
         return this.board.board;
     };
 
-    insertion = (colIndex) => {
-        console.log("ColIndex in game.js: ", colIndex)
-        const successfullInsertRow = this.board.move(colIndex, 1);
+    insertion = (rowIndex, colIndex) => {
+        const playerKey = this.currentPlayer.key;
+        const successfullInsertRow = this.board.move(colIndex, playerKey);
         if (successfullInsertRow) {
-            const isWinStr = this.board.checkForWin();
-            if (isWinStr != "SORRY") {
-                this.winning(isWinStr);
+            const isWinStr = this.board.checkForWin(rowIndex, colIndex, playerKey);
+            console.log(isWinStr);
+            if (isWinStr) {
+                alert("Victory!");
             }
             this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
             return true;
@@ -42,7 +43,6 @@ class Game {
 
     };
 
-    winning = (msg) => { };
 
 }
 export default Game;
