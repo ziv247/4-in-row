@@ -12,7 +12,7 @@ class Main extends Component {
     super(props);
     this.state = {
       boardOn: false,
-      board: []
+      board: [],
     };
     this.chooseNumOfPlayers = React.createRef();
     this.buildBoardBtn = React.createRef();
@@ -41,7 +41,7 @@ class Main extends Component {
 
   handleDefBoard = () => {
     this.setState({
-      board: this.game.initBoard(),
+      board: this.game.initBoard(6,7),
       boardOn: !this.state.boardOn
     });
   };
@@ -71,7 +71,7 @@ class Main extends Component {
               onClick={e => this.onStart(e)}
               className="mainBtn"
             >
-              Start
+              Start Playing
             </Button>
 
             <ButtonGroup
@@ -85,10 +85,11 @@ class Main extends Component {
                 className="mainBtn"
                 style={{
                   borderBottomleftRadius: "0 !important",
-                  borderTopLeftRadius: "0 !important"
+                  borderTopLeftRadius: "0 !important",
+                  marginRight:'50px'
                 }}
               >
-                P vs P
+                Player VS Player
               </Button>
               <Button
                 variant="outline-dark"
@@ -99,7 +100,7 @@ class Main extends Component {
                   borderBottomLeftRadius: "0 !important"
                 }}
               >
-                P vs Computer
+                Player VS Computer
               </Button>
             </ButtonGroup>
 
@@ -123,24 +124,27 @@ class Main extends Component {
                   className="mainBtn"
                   style={{
                     borderBottomLeftRadius: "0",
-                    borderTopLeftRadius: "0"
+                    borderTopLeftRadius: "0",
+                    marginLeft:'50px'
                   }}
                 >
                   Custom Board
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <form onSubmit={this.handleSubmit} action="">
+                <Dropdown.Menu style={colorBackground}>
+                  <form style={{textAlign:'center'}} onSubmit={this.handleSubmit} action="">
                     <input
                       id="rowsInput"
                       placeholder="Number of Rows"
                       type="text"
+                      style={colorBackground}
                     />
                     <input
                       id="columnsInput"
-                      style={{ margin: "25px 0" }}
+                      style={colorBackground}
                       placeholder="Number of Columns"
                       type="text"
+                      className={'my-4'}
                     />
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <input value="submit" type="submit" />
@@ -151,14 +155,8 @@ class Main extends Component {
             </ButtonGroup>
           </div>
         ) : (
-<<<<<<< HEAD
-          <GameBoard
-            matrix={this.state.board}
-            handleInsert={this.handleInsert}
-          />
-=======
-          <GameBoard player2={this.game.player2} player1={this.game.player1} matrix={this.state.board} />
->>>>>>> master
+          
+          <GameBoard handleDefBoard={this.handleDefBoard} player2={this.game.player2} player1={this.game.player1} matrix={this.state.board} />
         )}
       </div>
     );
@@ -175,3 +173,4 @@ const mainDivStyle = {
   justifyContent: "center",
   alignItems: "center"
 };
+const colorBackground={backgroundImage:'linear-gradient( 109.7deg,  rgba(101,204,184,1) 12.9%, rgba(109,236,185,1) 101.5% )'}

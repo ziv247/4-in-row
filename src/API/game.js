@@ -22,7 +22,7 @@ class Game {
         this.currentPlayer = this.player1;
     };
 
-    initBoard = (row = 7, column = 6) => {
+    initBoard = (row , column ) => {
         this.board = new Board(column, row);
         return this.board.board;
     };
@@ -42,7 +42,7 @@ class Game {
 
     };
 
-    winning = (msg) => { };
+    
 
 }
 export default Game;

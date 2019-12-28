@@ -41,7 +41,6 @@ class Board {
 
 
     checkForWin = () => {
-<<<<<<< HEAD
         // this.checkRows();
         // this.checkColumns();
         // this.checkDiagonals();
@@ -69,35 +68,6 @@ class Board {
         //     }
         //     return "SORRY"
         // }
-=======
-        this.checkRows(this.row);
-        this.checkColumns(this.column);
-        this.checkDiagonals();
-        if (this.winRow || this.winColumn || this.winDiagonal) {
-            if (this.winRow && !this.winColumn && !this.winDiagonal) {
-                return "WIN BY ROW";
-            }
-            if (!this.winRow && this.winColumn && !this.winDiagonal) {
-                return "WIN BY COLUMN";
-            }
-            if (!this.winRow && !this.winColumn && this.winDiagonal) {
-                return "WIN BY DIAGONAL";
-            }
-            if (this.winRow && this.winColumn && !this.winDiagonal) {
-                return "WIN BY ROW AND COLUMN";
-            }
-            if (this.winRow && !this.winColumn && this.winDiagonal) {
-                return "WIN BY ROW AND DIAGONAL";
-            }
-            if (!this.winRow && this.winColumn && this.winDiagonal) {
-                return "WIN BY COLUMN AND DIAGONAL";
-            }
-            if (this.winRow && this.winColumn && this.winDiagonal) {
-                return "WIN BY ROW, COLUMN AND DIAGONAL";
-            }
-            return "SORRY"
-        }
->>>>>>> master
     }
 
     checkRows = (rows) => {
