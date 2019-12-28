@@ -22,13 +22,14 @@ class Game {
         this.currentPlayer = this.player1;
     };
 
-    initBoard = (row = 6, column = 7) => {
-        this.board = new Board(row, column);
+    initBoard = (row = 7, column = 6) => {
+        this.board = new Board(column, row);
         return this.board.board;
     };
 
     insertion = (colIndex) => {
-        const successfullInsertRow = this.board.move(colIndex, this.currentPlayer.color);
+        console.log("ColIndex in game.js: ", colIndex)
+        const successfullInsertRow = this.board.move(colIndex, 1);
         if (successfullInsertRow) {
             const isWinStr = this.board.checkForWin();
             if (isWinStr != "SORRY") {

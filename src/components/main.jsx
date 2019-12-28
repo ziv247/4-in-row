@@ -7,13 +7,6 @@ import "../style/style.css";
 import Game from "./../API/game";
 import { Player } from "../API/player";
 
-const mainDiv = {
-  height: "83vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
-
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -52,6 +45,7 @@ class Main extends Component {
       boardOn: !this.state.boardOn
     });
   };
+
   handleSubmit = () => {
     const rowsInputValue=document.getElementById('rowsInput').value;
     const columnsInputValue=document.getElementById('columnsInput').value;
@@ -62,9 +56,14 @@ class Main extends Component {
     });
   };
 
+  handleInsert = (rowIndex, colIndex) => {
+    // this.game.insertion(colIndex);
+    alert(`Row: ${rowIndex} Column: ${colIndex}`);
+  };
+
   render() {
     return (
-      <div style={mainDivStyle}>
+      <div className={"mainDiv"}>
         {!this.state.boardOn ? (
           <div>
             <Button
@@ -84,6 +83,10 @@ class Main extends Component {
                 variant="outline-dark"
                 onClick={e => this.onPlayerInit(1)}
                 className="mainBtn"
+                style={{
+                  borderBottomleftRadius: "0 !important",
+                  borderTopLeftRadius: "0 !important"
+                }}
               >
                 P vs P
               </Button>
@@ -91,6 +94,10 @@ class Main extends Component {
                 variant="outline-dark"
                 onClick={e => this.onPlayerInit(2)}
                 className="mainBtn"
+                style={{
+                  borderTopLeftRadius: "0 !important",
+                  borderBottomLeftRadius: "0 !important"
+                }}
               >
                 P vs Computer
               </Button>
@@ -144,7 +151,14 @@ class Main extends Component {
             </ButtonGroup>
           </div>
         ) : (
+<<<<<<< HEAD
+          <GameBoard
+            matrix={this.state.board}
+            handleInsert={this.handleInsert}
+          />
+=======
           <GameBoard player2={this.game.player2} player1={this.game.player1} matrix={this.state.board} />
+>>>>>>> master
         )}
       </div>
     );
