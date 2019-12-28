@@ -3,9 +3,9 @@ import { Button, ButtonGroup } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
 import GameBoard from "./gameBoard.jsx";
 import "../style/style.css";
-
 import Game from "./../API/game";
 import { Player } from "../API/player";
+import NewGamePopUp from './newGame.jsx';
 
 class Main extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class Main extends Component {
     this.state = {
       boardOn: false,
       board: [],
+      newGame:false
     };
     this.chooseNumOfPlayers = React.createRef();
     this.buildBoardBtn = React.createRef();
@@ -55,9 +56,13 @@ class Main extends Component {
       boardOn: !this.state.boardOn
     });
   };
-
+  winEvent = (player) => {
+    this.setState({
+      newGame:!this.state.newGame
+    })
+  }
   handleInsert = (rowIndex, colIndex) => {
-    this.game.insertion(rowIndex, colIndex);
+    this.game.insertion(rowIndex, colIndex,this.winEvent);
     console.log(this.game.board.getBoard());
     this.setState({ board: this.game.board.getBoard() });
   };
@@ -161,8 +166,11 @@ class Main extends Component {
             player1={this.game.player1}
             matrix={this.state.board}
             handleInsert={this.handleInsert}
+            handleDefBoard={this.handleDefBoard}
+
           />
         )}
+        {this.state.newGame && <NewGamePopUp winEvent={this.winEvent}/>}
       </div>
     );
   }
