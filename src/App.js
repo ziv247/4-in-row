@@ -4,11 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Main from './components/main';
 
 const h1Style = {
-  fontSize: "4.5rem",
+  fontSize: "7vw",
   fontFamily: "cursive",
-  margin: "10px 0",
+  margin:"10px 0",
   width: "100%",
-};
+}
 
 class App extends Component {
 
