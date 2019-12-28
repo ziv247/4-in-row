@@ -17,7 +17,7 @@ class Board {
                 rows.push(0);
             }
             board.push(rows);
-        } 
+        }
         this.board = board;
     }
 
@@ -40,9 +40,8 @@ class Board {
 
 
 
-    checkForWin = (rowInx, colInx, playerKey) => {
-        console.log(this.checkRow(this.row, playerKey), this.checkColumn(this.column, playerKey), playerKey)
-        if (this.checkRow(this.row, playerKey) || this.checkColumn(this.column, playerKey)) {
+    checkForWin = (playerKey) => {
+        if (this.checkRow(this.row, playerKey) || this.checkColumn(this.column, playerKey) || this.checkDiagonals(playerKey)) {
             return true
         }
         return false
@@ -50,18 +49,18 @@ class Board {
 
     checkRow = (rowInx, playerKey) => {
         let currentCounter = 0;
+        const row = this.board[rowInx];
         console.log(this.board[rowInx])
 
-        this.board[rowInx].map(cell => {
-            console.log(cell)
-            if (cell == playerKey) {
+        for (let i = 0; i < row.length; i++) {
+            if (row[i] === playerKey) {
                 currentCounter++;
+                if (currentCounter >= 4) {
+                    return true;
+                }
             } else {
                 currentCounter = 0;
             }
-        })
-        if (currentCounter >= 4) {
-            return true;
         }
         return false;
     }
@@ -69,67 +68,82 @@ class Board {
     checkColumn = (colInx, playerKey) => {
         let currentCounter = 0;
 
-        this.board.map(row => {
-            if (row[colInx] == playerKey) {
+        for (let i = 0; i < this.board.length; i++) {
+            if (this.board[i][colInx] === playerKey) {
                 currentCounter++;
+                if (currentCounter >= 4) {
+                    return true;
+                }
             } else {
                 currentCounter = 0;
             }
-        })
-        if (currentCounter >= 4) {
-            return true;
         }
         return false;
     }
 
-    checkDiagonals = () => {
-        //four in a diagonal
-        //bottom left to top right diagonals
-        //idea: search from start points for these diagonals. start points are the fields in the bottom left 4*4 square
-        return this.checkBLTRdiagonals() || this.checkTLBRdiagonals()
-
-
-        //top left to bottom right diagonals
-        //idea: search from start points for these diagonals. start points are the fields in the top left 4*4 square
-
+    checkDiagonals = (playerKey) => {
+        return this.checkBLTRdiagonals(playerKey) || this.checkTLBRdiagonals(playerKey)
     }
 
-    checkBLTRdiagonals = () => {
-        for (var j = 0; j < 4; j++) {
-            for (var i = 0; i < 4; i++) {
-                var currentCount = 1;
-                var currentToken = this.board[i][j];
-                for (var step = 1; step < 4; step++) {
-                    if (currentToken === this.board[i + step][j + step]) {
-                        currentCount++;
-                    } else {
-                        break;
-                    }
-                    if (currentCount === 4) {
-                        return true;
-                    }
-                }
-            }
+    checkBLTRdiagonals = (playerKey) => {
+        let currRowInx = this.row;
+        let currColInx = this.column;
+        while (currRowInx > 0 && currColInx > 0) {
+
+            currColInx--;
+            currRowInx--;
         }
+        let currentCounter = 0;
+        let i = currRowInx;
+        let j = currColInx;
+
+        while (i < this.board.length && j < this.board[0].length) {
+            if (this.board[i][j] === playerKey) {
+                currentCounter++;
+                if (currentCounter >= 4) {
+                    return true;
+                }
+            } else {
+                currentCounter = 0;
+            }
+            i++;
+            j++;
+        }
+
+        return false;
     }
 
-    checkTLBRdiagonals = () => {
-        for (var j = 4; j < 7; j++) {
-            for (var i = 0; i < 4; i++) {
-                var currentCount = 1;
-                var currentToken = this.board[i][j];
-                for (var step = 1; step < 4; step++) {
-                    if (currentToken === this.board[i + step][j - step]) {
-                        currentCount++;
-                    } else {
-                        break;
-                    }
-                    if (currentCount === 4) {
-                        return true;
-                    }
-                }
-            }
+
+    checkTLBRdiagonals = (playerKey) => {
+        let currRowInx = this.row;
+        let currColInx = this.column;
+
+        while (currRowInx < this.board.length - 1 && currColInx > 0) {
+            currColInx--;
+            currRowInx++;
         }
+        let currentCounter = 0;
+        let i = currRowInx;
+        let j = currColInx;
+        console.log(`Column ${j}`)
+        console.log(`Row: ${i}`)
+        console.log(`In: ${this.board[i][j]}`)
+        console.log(`Player key: ${playerKey}`)
+
+        while (i >= 0 && j < this.board[i].length) {
+            if (this.board[i][j] === playerKey) {
+                currentCounter++;
+                if (currentCounter >= 4) {
+                    return true;
+                }
+            } else {
+                currentCounter = 0;
+            }
+            j++;
+            i--;
+        }
+
+        return false;
     }
 }
 export { Board };
