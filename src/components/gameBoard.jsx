@@ -14,9 +14,23 @@ class GameBoard extends React.Component {
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
         [0, 0, 1, 0, 0, 0]
-      ]
+      ],
+      firstPlayerTurn:true,
     };
-    console.log(props.matrix);
+
+  }
+  paintCircle=(e)=>{   
+    if(this.state.firstPlayerTurn){
+      e.target.style.backgroundColor='red' ;
+      this.setState({
+        firstPlayerTurn:!this.state.firstPlayerTurn
+      })
+    }else{
+      e.target.style.backgroundColor='yellow';
+      this.setState({
+        firstPlayerTurn:!this.state.firstPlayerTurn
+      })
+    }
   }
   render() {
     return (
@@ -28,7 +42,8 @@ class GameBoard extends React.Component {
               let cellColor =
                 innerCell == 0 ? "white" : innerCell == 1 ? "red" : "yellow";
               return (
-                <div
+                <div 
+                  
                   style={{
                     backgroundColor: "black",
                     width: `${100 / cell.length}%`,
@@ -38,7 +53,7 @@ class GameBoard extends React.Component {
                   }}
                   className={"square-box"}
                 >
-                  <div
+                  <div  onClick={this.paintCircle}
                     // style={{
                     //   background: cellColor,
                     //   width: "80%",

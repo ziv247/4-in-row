@@ -142,7 +142,7 @@ class Main extends Component {
             </ButtonGroup>
           </div>
         ) : (
-          <GameBoard matrix={this.state.board} />
+          <GameBoard player2={this.game.player2} player1={this.game.player1} matrix={this.state.board} />
         )}
       </div>
     );
