@@ -6,6 +6,7 @@ class GameBoard extends React.Component {
     super(props);
     this.state = {
       matrix: props.matrix,
+<<<<<<< HEAD
       handleInsert: props.handleInsert
     };
     // this.state = {
@@ -18,6 +19,25 @@ class GameBoard extends React.Component {
     //   ]
     // };
     console.log(props.matrix);
+=======
+      firstPlayerTurn:true,
+    };
+    
+
+  }
+  paintCircle=(e)=>{   
+    if(this.state.firstPlayerTurn){
+      e.target.style.backgroundColor='red' ;
+      this.setState({
+        firstPlayerTurn:!this.state.firstPlayerTurn
+      })
+    }else{
+      e.target.style.backgroundColor='yellow';
+      this.setState({
+        firstPlayerTurn:!this.state.firstPlayerTurn
+      })
+    }
+>>>>>>> master
   }
 
   render() {
@@ -38,12 +58,18 @@ class GameBoard extends React.Component {
               let cellColor =
                 innerCell == 0 ? "white" : innerCell == 1 ? "red" : "yellow";
               return (
+<<<<<<< HEAD
                 <Col
+=======
+                <div 
+                  
+>>>>>>> master
                   style={{
                     backgroundColor: "gray",
                     border: "1px solid"
                   }}
                 >
+<<<<<<< HEAD
                   <div
                     onClick={() => this.state.handleInsert(r, i)}
                     style={{
@@ -88,6 +114,26 @@ class GameBoard extends React.Component {
                 //     </div>
                 //   </div>
                 // </div>
+=======
+                  <div  onClick={this.paintCircle}
+                    // style={{
+                    //   background: cellColor,
+                    //   width: "80%",
+                    //   height: "80%",
+                    //   borderRadius: "100%",
+                    //   margin: "10px auto"
+                    // }}
+                    className="square-content"
+                  >
+                    <div
+                      style={{
+                        maxHeight: `${100 / cell.length - 2}vw`,
+                        maxWidth: `${100 / cell.length - 2}vh`
+                      }}
+                    ></div>
+                  </div>
+                </div>
+>>>>>>> master
               );
             })}
           </Row>

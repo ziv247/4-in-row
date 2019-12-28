@@ -27,7 +27,6 @@ class Main extends Component {
   onPlayerInit = key => {
     this.chooseNumOfPlayers.current.style.display = "none";
     this.buildBoardBtn.current.style.display = "inline-flex";
-    // eslint-disable-next-line default-case
     switch (key) {
       case 1:
         this.game.player1 = new Player(1);
@@ -48,8 +47,11 @@ class Main extends Component {
   };
 
   handleSubmit = () => {
+    const rowsInputValue=document.getElementById('rowsInput').value;
+    const columnsInputValue=document.getElementById('columnsInput').value;
+
     this.setState({
-      board: this.game.initBoard(),
+      board: this.game.initBoard(rowsInputValue,columnsInputValue),
       boardOn: !this.state.boardOn
     });
   };
@@ -149,10 +151,14 @@ class Main extends Component {
             </ButtonGroup>
           </div>
         ) : (
+<<<<<<< HEAD
           <GameBoard
             matrix={this.state.board}
             handleInsert={this.handleInsert}
           />
+=======
+          <GameBoard player2={this.game.player2} player1={this.game.player1} matrix={this.state.board} />
+>>>>>>> master
         )}
       </div>
     );
@@ -164,7 +170,7 @@ export default Main;
 //styling
 
 const mainDivStyle = {
-  height: "85vh",
+  height: "100vh",
   display: "flex",
   justifyContent: "center",
   alignItems: "center"

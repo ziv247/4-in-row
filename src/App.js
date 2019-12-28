@@ -6,7 +6,9 @@ import Main from './components/main';
 const h1Style = {
   fontSize: "7vw",
   fontFamily: "cursive",
-};
+  margin:"10px 0",
+  width: "100%",
+}
 
 class App extends Component {
 
@@ -14,7 +16,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1 style={h1Style}>4 In a Row</h1>
-        <Main />
+        <Main/>
       </div>
     );
   }

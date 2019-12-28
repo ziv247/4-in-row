@@ -5,6 +5,8 @@ class Board {
         this.winRow = false;
         this.winColumn = false;
         this.winDiagonal = false;
+        this.row=row;
+        this.column=column;
     }
 
     initBoard = (row, column) => {
@@ -39,6 +41,7 @@ class Board {
 
 
     checkForWin = () => {
+<<<<<<< HEAD
         // this.checkRows();
         // this.checkColumns();
         // this.checkDiagonals();
@@ -66,14 +69,43 @@ class Board {
         //     }
         //     return "SORRY"
         // }
+=======
+        this.checkRows(this.row);
+        this.checkColumns(this.column);
+        this.checkDiagonals();
+        if (this.winRow || this.winColumn || this.winDiagonal) {
+            if (this.winRow && !this.winColumn && !this.winDiagonal) {
+                return "WIN BY ROW";
+            }
+            if (!this.winRow && this.winColumn && !this.winDiagonal) {
+                return "WIN BY COLUMN";
+            }
+            if (!this.winRow && !this.winColumn && this.winDiagonal) {
+                return "WIN BY DIAGONAL";
+            }
+            if (this.winRow && this.winColumn && !this.winDiagonal) {
+                return "WIN BY ROW AND COLUMN";
+            }
+            if (this.winRow && !this.winColumn && this.winDiagonal) {
+                return "WIN BY ROW AND DIAGONAL";
+            }
+            if (!this.winRow && this.winColumn && this.winDiagonal) {
+                return "WIN BY COLUMN AND DIAGONAL";
+            }
+            if (this.winRow && this.winColumn && this.winDiagonal) {
+                return "WIN BY ROW, COLUMN AND DIAGONAL";
+            }
+            return "SORRY"
+        }
+>>>>>>> master
     }
 
-    checkRows = () => {
+    checkRows = (rows) => {
         //four in a row
-        for (var j = 0; j < 7; j++) {
+        for (var j = 0; j <=rows; j++) {
             var currentCount = 1;
             var currentToken = this.board.getBoard[0][j];
-            for (var i = 1; i < 7; i++) {
+            for (var i = 1; i <rows; i++) {
                 if (currentToken === this.board.getBoard[i][j]) {
                     currentCount++;
                     if (currentCount === 4) {
@@ -88,12 +120,12 @@ class Board {
         }
     }
 
-    checkColumns = () => {
+    checkColumns = (columns) => {
         //four in a column
-        for (var i = 0; i < 7; i++) {
+        for (var i = 0; i < columns; i++) {
             var currentCount = 1;
             var currentToken = this.board.getBoard[i][0];
-            for (var j = 1; j < 7; j++) {
+            for (var j = 1; j < columns; j++) {
                 if (currentToken === this.board.getBoard[i][j]) {
                     currentCount++;
                     if (currentCount === 4) {
