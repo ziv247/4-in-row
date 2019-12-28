@@ -7,36 +7,24 @@ class GameBoard extends React.Component {
     super(props);
     this.state = {
       matrix: props.matrix,
-      firstPlayerTurn:true,
+      handleInsert: props.handleInsert
     };
-    
+  }
 
-  }
-  paintCircle=(e)=>{   
-    if(this.state.firstPlayerTurn){
-      e.target.style.backgroundColor='red' ;
-      this.setState({
-        firstPlayerTurn:!this.state.firstPlayerTurn
-      })
-    }else{
-      e.target.style.backgroundColor='yellow';
-      this.setState({
-        firstPlayerTurn:!this.state.firstPlayerTurn
-      })
-    }
-  }
+  paintCircle = (rowInx, colInx) => {
+    this.state.handleInsert(rowInx, colInx);
+  };
+
   render() {
     return (
-      <Container style={{position:'relative'}}>
-        <Button onClick={this.props.handleDefBoard} style={resetButtonStyle} as="input" type="reset" value="Back to Main Menu" />
-        <ScoreBoard/>
-        {this.state.matrix.map((cell, c) => (
+      <Container>
+        {this.state.matrix.map((cell, rowIndex) => (
           <Row style={{ margin: "auto", maxWidth: "88vh" }}>
-            {cell.map((innerCell, i) => {
+            {cell.map((innerCell, columnIndex) => {
               let cellColor =
                 innerCell == 0 ? "white" : innerCell == 1 ? "red" : "yellow";
               return (
-                <div 
+                <div
                   style={{
                     backgroundColor: "black",
                     width: `${100 / cell.length}%`,
@@ -46,11 +34,15 @@ class GameBoard extends React.Component {
                   }}
                   className={"square-box"}
                 >
-                  <div  onClick={this.paintCircle}className="square-content">
+                  <div
+                    onClick={() => this.paintCircle(rowIndex, columnIndex)}
+                    className="square-content"
+                  >
                     <div
                       style={{
                         maxHeight: `${100 / cell.length - 2}vw`,
-                        maxWidth: `${100 / cell.length - 2}vh`
+                        maxWidth: `${100 / cell.length - 2}vh`,
+                        backgroundColor: cellColor
                       }}
                     ></div>
                   </div>

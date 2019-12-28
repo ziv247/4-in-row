@@ -29,36 +29,37 @@ class Main extends Component {
     this.buildBoardBtn.current.style.display = "inline-flex";
     switch (key) {
       case 1:
-        this.game.player1 = new Player(1);
-        this.game.player2 = new Player(2);
+        this.game.setPlayers(1);
         break;
       case 2:
-        this.game.player1 = new Player(1);
-        this.game.player2 = new Player(2);
+        this.game.setPlayers(2);
+        break;
+      default:
         break;
     }
   };
 
   handleDefBoard = () => {
     this.setState({
-      board: this.game.initBoard(6,7),
+      board: this.game.initBoard(6, 7),
       boardOn: !this.state.boardOn
     });
   };
 
   handleSubmit = () => {
-    const rowsInputValue=document.getElementById('rowsInput').value;
-    const columnsInputValue=document.getElementById('columnsInput').value;
+    const rowsInputValue = document.getElementById("rowsInput").value;
+    const columnsInputValue = document.getElementById("columnsInput").value;
 
     this.setState({
-      board: this.game.initBoard(rowsInputValue,columnsInputValue),
+      board: this.game.initBoard(rowsInputValue, columnsInputValue),
       boardOn: !this.state.boardOn
     });
   };
 
   handleInsert = (rowIndex, colIndex) => {
-    // this.game.insertion(colIndex);
-    alert(`Row: ${rowIndex} Column: ${colIndex}`);
+    this.game.insertion(rowIndex, colIndex);
+    console.log(this.game.board.getBoard());
+    this.setState({ board: this.game.board.getBoard() });
   };
 
   render() {
@@ -155,8 +156,12 @@ class Main extends Component {
             </ButtonGroup>
           </div>
         ) : (
-          
-          <GameBoard handleDefBoard={this.handleDefBoard} player2={this.game.player2} player1={this.game.player1} matrix={this.state.board} />
+          <GameBoard
+            player2={this.game.player2}
+            player1={this.game.player1}
+            matrix={this.state.board}
+            handleInsert={this.handleInsert}
+          />
         )}
       </div>
     );

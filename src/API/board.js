@@ -5,8 +5,8 @@ class Board {
         this.winRow = false;
         this.winColumn = false;
         this.winDiagonal = false;
-        this.row=row;
-        this.column=column;
+        this.row = row;
+        this.column = column;
     }
 
     initBoard = (row, column) => {
@@ -17,7 +17,7 @@ class Board {
                 rows.push(0);
             }
             board.push(rows);
-        }
+        } 
         this.board = board;
     }
 
@@ -25,12 +25,12 @@ class Board {
         for (let i = this.board.length - 1; i >= 0; i--) {
             if (this.board[i][colIndex] == 0) {
                 this.board[i][colIndex] = color;
-                return i;
+                this.row = i;
+                this.column = colIndex;
+                return true;
             }
         }
         return false
-        console.log(this.board)
-        // return Boolean 
     };
 
 
@@ -40,99 +40,73 @@ class Board {
 
 
 
-    checkForWin = () => {
-        // this.checkRows();
-        // this.checkColumns();
-        // this.checkDiagonals();
-        // if (this.winRow || this.winColumn || this.winDiagonal) {
-        //     if (this.winRow && !this.winColumn && !this.winDiagonal) {
-        //         return "WIN BY ROW";
-        //     }
-        //     if (!this.winRow && this.winColumn && !this.winDiagonal) {
-        //         return "WIN BY COLUMN";
-        //     }
-        //     if (!this.winRow && !this.winColumn && this.winDiagonal) {
-        //         return "WIN BY DIAGONAL";
-        //     }
-        //     if (this.winRow && this.winColumn && !this.winDiagonal) {
-        //         return "WIN BY ROW AND COLUMN";
-        //     }
-        //     if (this.winRow && !this.winColumn && this.winDiagonal) {
-        //         return "WIN BY ROW AND DIAGONAL";
-        //     }
-        //     if (!this.winRow && this.winColumn && this.winDiagonal) {
-        //         return "WIN BY COLUMN AND DIAGONAL";
-        //     }
-        //     if (this.winRow && this.winColumn && this.winDiagonal) {
-        //         return "WIN BY ROW, COLUMN AND DIAGONAL";
-        //     }
-        //     return "SORRY"
-        // }
+    checkForWin = (rowInx, colInx, playerKey) => {
+        console.log(this.checkRow(this.row, playerKey), this.checkColumn(this.column, playerKey), playerKey)
+        if (this.checkRow(this.row, playerKey) || this.checkColumn(this.column, playerKey)) {
+            return true
+        }
+        return false
     }
 
-    checkRows = (rows) => {
-        //four in a row
-        for (var j = 0; j <=rows; j++) {
-            var currentCount = 1;
-            var currentToken = this.board.getBoard[0][j];
-            for (var i = 1; i <rows; i++) {
-                if (currentToken === this.board.getBoard[i][j]) {
-                    currentCount++;
-                    if (currentCount === 4) {
-                        this.winRow = true;
-                        break;
-                    }
-                } else {
-                    currentToken = this.board.getBoard[i][j];
-                    currentCount = 1;
-                }
+    checkRow = (rowInx, playerKey) => {
+        let currentCounter = 0;
+        console.log(this.board[rowInx])
+
+        this.board[rowInx].map(cell => {
+            console.log(cell)
+            if (cell == playerKey) {
+                currentCounter++;
+            } else {
+                currentCounter = 0;
             }
+        })
+        if (currentCounter >= 4) {
+            return true;
         }
+        return false;
     }
 
-    checkColumns = (columns) => {
-        //four in a column
-        for (var i = 0; i < columns; i++) {
-            var currentCount = 1;
-            var currentToken = this.board.getBoard[i][0];
-            for (var j = 1; j < columns; j++) {
-                if (currentToken === this.board.getBoard[i][j]) {
-                    currentCount++;
-                    if (currentCount === 4) {
-                        this.winColumn = true;
-                        break;
-                    }
-                } else {
-                    currentToken = this.board.getBoard[i][j];
-                    currentCount = 1;
-                }
+    checkColumn = (colInx, playerKey) => {
+        let currentCounter = 0;
+
+        this.board.map(row => {
+            if (row[colInx] == playerKey) {
+                currentCounter++;
+            } else {
+                currentCounter = 0;
             }
+        })
+        if (currentCounter >= 4) {
+            return true;
         }
+        return false;
     }
 
     checkDiagonals = () => {
         //four in a diagonal
         //bottom left to top right diagonals
         //idea: search from start points for these diagonals. start points are the fields in the bottom left 4*4 square
-        this.checkBLTRdiagonals();
+        return this.checkBLTRdiagonals() || this.checkTLBRdiagonals()
+
+
         //top left to bottom right diagonals
         //idea: search from start points for these diagonals. start points are the fields in the top left 4*4 square
-        this.checkTLBRdiagonals();
+
     }
 
     checkBLTRdiagonals = () => {
         for (var j = 0; j < 4; j++) {
             for (var i = 0; i < 4; i++) {
                 var currentCount = 1;
-                var currentToken = this.board.getBoard[i][j];
+                var currentToken = this.board[i][j];
                 for (var step = 1; step < 4; step++) {
-                    if (currentToken === this.board.getBoard[i + step][j + step]) {
+                    if (currentToken === this.board[i + step][j + step]) {
                         currentCount++;
                     } else {
                         break;
                     }
                     if (currentCount === 4) {
-                        this.winDiagonal = true;
+                        return true;
                     }
                 }
             }
@@ -143,15 +117,15 @@ class Board {
         for (var j = 4; j < 7; j++) {
             for (var i = 0; i < 4; i++) {
                 var currentCount = 1;
-                var currentToken = this.board.getBoard[i][j];
+                var currentToken = this.board[i][j];
                 for (var step = 1; step < 4; step++) {
-                    if (currentToken === this.board.getBoard[i + step][j - step]) {
+                    if (currentToken === this.board[i + step][j - step]) {
                         currentCount++;
                     } else {
                         break;
                     }
                     if (currentCount === 4) {
-                        this.winDiagonal = true;
+                        return true;
                     }
                 }
             }
