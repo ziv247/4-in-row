@@ -8,9 +8,8 @@ const h1Style = {
   margin: 0,
   maxHeight: "85px",
   fontFamily: "cursive",
-  margin: "10px 0",
   width: "100%",
-  
+
 }
 
 class App extends Component {

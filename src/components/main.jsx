@@ -4,8 +4,7 @@ import { Dropdown } from "react-bootstrap";
 import GameBoard from "./gameBoard.jsx";
 import "../style/style.css";
 import Game from "./../API/game";
-import { Player } from "../API/player";
-import NewGamePopUp from './newGame.jsx';
+import NewGamePopUp from "./newGame.jsx";
 
 class Main extends Component {
   constructor(props) {
@@ -13,7 +12,8 @@ class Main extends Component {
     this.state = {
       boardOn: false,
       board: [],
-      newGame:false
+      currentPlayer: null,
+      winPlayer: null
     };
     this.chooseNumOfPlayers = React.createRef();
     this.buildBoardBtn = React.createRef();
@@ -28,16 +28,10 @@ class Main extends Component {
   onPlayerInit = key => {
     this.chooseNumOfPlayers.current.style.display = "none";
     this.buildBoardBtn.current.style.display = "inline-flex";
-    switch (key) {
-      case 1:
-        this.game.setPlayers(1);
-        break;
-      case 2:
-        this.game.setPlayers(2);
-        break;
-      default:
-        break;
-    }
+
+    this.game.setPlayers(key);
+
+    this.setState({ currentPlayer: this.game.currentPlayer });
   };
 
   handleDefBoard = () => {
@@ -47,24 +41,41 @@ class Main extends Component {
     });
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
     const rowsInputValue = document.getElementById("rowsInput").value;
     const columnsInputValue = document.getElementById("columnsInput").value;
-
+    console.log(rowsInputValue, columnsInputValue);
     this.setState({
       board: this.game.initBoard(rowsInputValue, columnsInputValue),
       boardOn: !this.state.boardOn
     });
   };
-  winEvent = () => {
+  winEvent = player => {
     this.setState({
-      newGame:!this.state.newGame
-    })
-  }
+      winPlayer: player
+    });
+  };
+
   handleInsert = (rowIndex, colIndex) => {
-    this.game.insertion(rowIndex, colIndex,this.winEvent);
-    console.log(this.game.board.getBoard());
-    this.setState({ board: this.game.board.getBoard() });
+    if (this.game.insertion(colIndex, this.winEvent)) {
+      this.setState({
+        currentPlayer: this.game.currentPlayer,
+        board: this.game.boardManager.getBoard()
+      });
+    }
+  };
+
+  handleNewGame = toReset => {
+    if (toReset) {
+      this.setState({
+        board: this.game.boardManager.getBoard(),
+        winPlayer: null
+      });
+      console.log(this.state.board);
+      this.forceUpdate();
+    } else {
+      window.location.reload();
+    }
   };
 
   render() {
@@ -73,7 +84,6 @@ class Main extends Component {
         {!this.state.boardOn ? (
           <div>
             <Button
-              
               variant="outline-dark"
               onClick={e => this.onStart(e)}
               className="mainBtn button-style"
@@ -87,22 +97,20 @@ class Main extends Component {
               style={{ display: "none" }}
             >
               <Button
-                className={'buttons-background'}
                 variant="outline-dark"
-                onClick={e => this.onPlayerInit(1)}
+                onClick={e => this.onPlayerInit(2)}
                 className="mainBtn button-style"
                 style={{
                   borderBottomleftRadius: "0 !important",
                   borderTopLeftRadius: "0 !important",
-                  marginRight:'50px'
+                  marginRight: "50px"
                 }}
               >
                 Player VS Player
               </Button>
               <Button
-                
                 variant="outline-dark"
-                onClick={e => this.onPlayerInit(2)}
+                onClick={e => this.onPlayerInit(1)}
                 className="mainBtn button-style"
                 style={{
                   borderTopLeftRadius: "0 !important",
@@ -134,14 +142,14 @@ class Main extends Component {
                   style={{
                     borderBottomLeftRadius: "0",
                     borderTopLeftRadius: "0",
-                    marginLeft:'50px'
+                    marginLeft: "50px"
                   }}
                 >
                   Custom Board
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu style={colorBackground}>
-                  <form style={{textAlign:'center'}} onSubmit={this.handleSubmit} action="">
+                  <form style={{ textAlign: "center" }} action="">
                     <input
                       id="rowsInput"
                       placeholder="Number of Rows"
@@ -153,10 +161,10 @@ class Main extends Component {
                       style={colorBackground}
                       placeholder="Number of Columns"
                       type="text"
-                      className={'my-4'}
+                      className={"my-4"}
                     />
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                      <input value="submit" type="submit" />
+                      <button onClick={this.handleSubmit} type="submit" />
                     </div>
                   </form>
                 </Dropdown.Menu>
@@ -170,10 +178,16 @@ class Main extends Component {
             matrix={this.state.board}
             handleInsert={this.handleInsert}
             handleDefBoard={this.handleDefBoard}
-
           />
         )}
-        {this.state.newGame && <NewGamePopUp board={this.game.board} winEvent={this.winEvent} handleDefBoard={this.handleDefBoard} winner={this.game.currentPlayer}/>}
+        {this.state.newGame && (
+          <NewGamePopUp
+            board={this.game.board}
+            winEvent={this.winEvent}
+            handleDefBoard={this.handleDefBoard}
+            winner={this.game.currentPlayer}
+          />
+        )}
       </div>
     );
   }
@@ -183,13 +197,7 @@ export default Main;
 
 //styling
 
-const mainDivStyle = {
-  height: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
+const colorBackground = {
+  backgroundImage:
+    "linear-gradient( 109.7deg,  rgba(101,204,184,1) 12.9%, rgba(109,236,185,1) 101.5% )"
 };
-const colorBackground={backgroundImage:'linear-gradient( 109.7deg,  rgba(101,204,184,1) 12.9%, rgba(109,236,185,1) 101.5% )'}
-const buttonBackground={backgroundColor: '#f5d020',
-  backgroundImage: 'linear-gradient(315deg, #f5d020 0%, #f53803 74%)'
-  }
