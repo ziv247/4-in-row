@@ -13,7 +13,8 @@ class Main extends Component {
       boardOn: false,
       board: [],
       currentPlayer: null,
-      winPlayer: null
+      winPlayer: null,
+      newGame: false
     };
     this.chooseNumOfPlayers = React.createRef();
     this.buildBoardBtn = React.createRef();
@@ -50,33 +51,37 @@ class Main extends Component {
       boardOn: !this.state.boardOn
     });
   };
-  winEvent = player => {
+  winEvent = board => {
+    console.log("winEvent", this.game);
     this.setState({
-      winPlayer: player
+      boardOn: !this.state.boardOn,
+      newGame: !this.state.newGame,
+      board: board
     });
+    //  this.board.initBoard()
   };
 
   handleInsert = (rowIndex, colIndex) => {
     if (this.game.insertion(colIndex, this.winEvent)) {
       this.setState({
         currentPlayer: this.game.currentPlayer,
-        board: this.game.boardManager.getBoard()
+        board: this.game.board.getBoard()
       });
     }
   };
 
-  handleNewGame = toReset => {
-    if (toReset) {
-      this.setState({
-        board: this.game.boardManager.getBoard(),
-        winPlayer: null
-      });
-      console.log(this.state.board);
-      this.forceUpdate();
-    } else {
-      window.location.reload();
-    }
-  };
+  // handleNewGame = toReset => {
+  //   if (toReset) {
+  //     this.setState({
+  //       board: this.game.board.getBoard(),
+  //       winPlayer: null
+  //     });
+  //     console.log(this.state.board);
+  //     this.forceUpdate();
+  //   } else {
+  //     window.location.reload();
+  //   }
+  // };
 
   render() {
     return (

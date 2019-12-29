@@ -4,7 +4,7 @@ import { Board } from './board.js';
 
 class Game {
     constructor() {
-        this.boardManager = null;
+        this.board = null;
         this.player1 = null;
         this.player2 = null;
         this.currentPlayer = null;
@@ -23,21 +23,21 @@ class Game {
     };
 
     initBoard = (row, column) => {
-        this.boardManager = new Board(row, column);
-        return this.boardManager.board;
+        this.board = new Board(row, column);
+        return this.board.board;
     };
 
     computerPlay = (winEvent) => {
-        const randomColInx = Math.floor(Math.random() * (this.boardManager.board[0].length - 1));
+        const randomColInx = Math.floor(Math.random() * (this.board.board[0].length - 1));
 
         setTimeout(this.insertion(randomColInx, winEvent), 1000)
     }
 
     insertion = (colIndex, winEvent) => {
         let playerKey = this.currentPlayer.key;
-        const successfullInsertRow = this.boardManager.move(colIndex, playerKey);
+        const successfullInsertRow = this.board.move(colIndex, playerKey);
         if (successfullInsertRow) {
-            const isWinStr = this.boardManager.checkForWin(playerKey);
+            const isWinStr = this.board.checkForWin(playerKey);
             if (isWinStr) {
                 winEvent(this.currentPlayer);
             }
@@ -52,7 +52,7 @@ class Game {
     };
 
     resetGame = () => {
-        this.initBoard(this.boardManager.rowNum, this.boardManager.colNum)
+        this.initBoard(this.board.rowNum, this.board.colNum)
         this.currentPlayer = this.player1;
 
     }

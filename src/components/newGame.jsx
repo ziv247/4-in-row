@@ -1,22 +1,25 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
+import Game from "./../API/game";
 class NewGamePopUp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.board = this.props.board;
+  }
   handleNewGame = e => {
-    const { board } = this.props;
+    debugger;
+
     if (e.target.value === "no") {
       this.props.handleDefBoard();
       this.props.winEvent();
     } else {
-      for (let i = 0; i < board.board.length; i++) {
-        for (let j = 0; j < board.board[0].length; j++) {
-          if (board.board[i][j] !== 0) {
-            board.board[i][j] = 0;
-          } else {
-            continue;
-          }
+      for (let i = 0; i < this.board.board.length; i++) {
+        for (let j = 0; j < this.board.board[0].length; j++) {
+          this.board.board[i][j] = 0;
         }
       }
-      this.props.winEvent();
+
+      this.props.winEvent(this.board.board);
     }
   };
   render() {
