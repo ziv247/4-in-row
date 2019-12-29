@@ -13,7 +13,8 @@ class Main extends Component {
       boardOn: false,
       board: [],
       currentPlayer: null,
-      winPlayer: null
+      winPlayer: null,
+      newGame: false
     };
     this.chooseNumOfPlayers = React.createRef();
     this.buildBoardBtn = React.createRef();
@@ -50,9 +51,10 @@ class Main extends Component {
       boardOn: !this.state.boardOn
     });
   };
-  winEvent = player => {
+  winEvent = () => {
+    console.log(this.game.board);
     this.setState({
-      winPlayer: player
+      newGame: !this.state.newGame
     });
   };
 
@@ -65,18 +67,18 @@ class Main extends Component {
     }
   };
 
-  handleNewGame = toReset => {
-    if (toReset) {
-      this.setState({
-        board: this.game.boardManager.getBoard(),
-        winPlayer: null
-      });
-      console.log(this.state.board);
-      this.forceUpdate();
-    } else {
-      window.location.reload();
-    }
-  };
+  // handleNewGame = toReset => {
+  //   if (toReset) {
+  //     this.setState({
+  //       board: this.game.boardManager.getBoard(),
+  //       winPlayer: null
+  //     });
+  //     console.log(this.state.board);
+  //     this.forceUpdate();
+  //   } else {
+  //     window.location.reload();
+  //   }
+  // };
 
   render() {
     return (
