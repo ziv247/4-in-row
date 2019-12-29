@@ -41,6 +41,11 @@ class Board {
 
 
     checkForWin = (playerKey) => {
+        console.log(this.checkRow(this.row, playerKey))
+        console.log(this.checkColumn(this.column, playerKey))
+        console.log(this.checkDiagonals(playerKey))
+        console.log(playerKey)
+
         if (this.checkRow(this.row, playerKey) || this.checkColumn(this.column, playerKey) || this.checkDiagonals(playerKey)) {
             return true
         }
