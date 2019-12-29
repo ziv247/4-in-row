@@ -1,19 +1,18 @@
 class Board {
     constructor(row, column) {
         this.board = [];
+        this.rowNum = row;
+        this.colNum = column;
         this.initBoard(row, column);
-        this.winRow = false;
-        this.winColumn = false;
-        this.winDiagonal = false;
         this.row = row;
         this.column = column;
     }
 
     initBoard = (row, column) => {
         const board = [];
-        for (let i = 0; i < column; i++) {
+        for (let i = 0; i < row; i++) {
             let rows = [];
-            for (let j = 0; j < row; j++) {
+            for (let j = 0; j < column; j++) {
                 rows.push(0);
             }
             board.push(rows);
@@ -21,10 +20,11 @@ class Board {
         this.board = board;
     }
 
-    move = (colIndex, color) => {
+    move = (colIndex, key) => {
+        console.log("bla", colIndex, key)
         for (let i = this.board.length - 1; i >= 0; i--) {
-            if (this.board[i][colIndex] == 0) {
-                this.board[i][colIndex] = color;
+            if (this.board[i][colIndex] === 0) {
+                this.board[i][colIndex] = key;
                 this.row = i;
                 this.column = colIndex;
                 return true;
@@ -34,14 +34,21 @@ class Board {
     };
 
 
+
     getBoard = () => {
         return this.board;
+    }
+
+    resetBoard = () => {
+        this.initBoard(this.rowNum, this.colNum)
     }
 
 
 
     checkForWin = (playerKey) => {
+
         if (this.checkRow(this.row, playerKey) || this.checkColumn(this.column, playerKey) || this.checkDiagonals(playerKey)) {
+            this.resetBoard()
             return true
         }
         return false
@@ -50,7 +57,6 @@ class Board {
     checkRow = (rowInx, playerKey) => {
         let currentCounter = 0;
         const row = this.board[rowInx];
-        console.log(this.board[rowInx])
 
         for (let i = 0; i < row.length; i++) {
             if (row[i] === playerKey) {
@@ -125,10 +131,6 @@ class Board {
         let currentCounter = 0;
         let i = currRowInx;
         let j = currColInx;
-        console.log(`Column ${j}`)
-        console.log(`Row: ${i}`)
-        console.log(`In: ${this.board[i][j]}`)
-        console.log(`Player key: ${playerKey}`)
 
         while (i >= 0 && j < this.board[i].length) {
             if (this.board[i][j] === playerKey) {

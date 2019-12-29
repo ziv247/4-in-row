@@ -1,6 +1,7 @@
 import React from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Button } from "react-bootstrap";
 import "../style/square.css";
+import ScoreBoard from "./scoreBoard";
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
@@ -16,16 +17,23 @@ class GameBoard extends React.Component {
 
   render() {
     return (
-      <Container style={{position:'relative'}}>
-        <Button onClick={this.props.handleDefBoard} style={resetButtonStyle} as="input" type="reset" value="Back to Main Menu"/>
-        <ScoreBoard/>
+      <Container style={{ position: "relative" }}>
+        <Button
+          onClick={this.props.handleDefBoard}
+          style={resetButtonStyle}
+          as="input"
+          type="reset"
+          defaultValue="Back to Main Menu"
+        />
+        <ScoreBoard />
         {this.state.matrix.map((cell, rowIndex) => (
-          <Row style={{ margin: "auto", maxWidth: "88vh" }}>
+          <Row style={{ margin: "auto", maxWidth: "88vh" }} key={rowIndex}>
             {cell.map((innerCell, columnIndex) => {
               let cellColor =
                 innerCell == 0 ? "white" : innerCell == 1 ? "red" : "yellow";
               return (
                 <div
+                  key={columnIndex}
                   style={{
                     backgroundColor: "black",
                     width: `${100 / cell.length}%`,

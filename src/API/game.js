@@ -4,7 +4,7 @@ import { Board } from './board.js';
 
 class Game {
     constructor() {
-        this.board = [];
+        this.boardManager = null;
         this.player1 = null;
         this.player2 = null;
         this.currentPlayer = null;
@@ -18,48 +18,49 @@ class Game {
             this.player1 = new Player(1);
             this.player2 = new Player(2);
         }
-        console.log(this.player1, this.player2);
         this.currentPlayer = this.player1;
+        console.log(this.currentPlayer)
     };
 
     initBoard = (row, column) => {
-        this.board = new Board(column, row);
-        return this.board.board;
+        this.boardManager = new Board(row, column);
+        return this.boardManager.board;
     };
 
-    insertion = (rowIndex, colIndex,winEvent) => {
-        const playerKey = this.currentPlayer.key;
-        const successfullInsertRow = this.board.move(colIndex, playerKey);
+    computerPlay = (winEvent) => {
+        const randomColInx = Math.floor(Math.random() * (this.boardManager.board[0].length - 1));
+
+        setTimeout(this.insertion(randomColInx, winEvent), 1000)
+    }
+
+    insertion = (colIndex, winEvent) => {
+        console.log(this.currentPlayer)
+        let playerKey = this.currentPlayer.key;
+        const successfullInsertRow = this.boardManager.move(colIndex, playerKey);
         if (successfullInsertRow) {
-            const isWinStr = this.board.checkForWin(rowIndex, colIndex, playerKey);
-            console.log(isWinStr);
+            const isWinStr = this.boardManager.checkForWin(playerKey);
             if (isWinStr) {
-                winEvent(this.currentPlayer)
-                // alert("Victory!");
+                winEvent(this.currentPlayer);
             }
             this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
+            if (this.currentPlayer instanceof ComputerPlayer) {
+                this.computerPlay(winEvent);
+            }
             return true;
         }
         return false;
 
     };
 
+    resetGame = () => {
+        this.initBoard(this.boardManager.rowNum, this.boardManager.colNum)
+        this.currentPlayer = this.player1;
+
+    }
+
 
 }
 export default Game;
 
-// const game = new Game();
-// game.setPlayers(2);
-// // game.initBoard(parseInt(prompt('Please Insert Number of Rows')),parseInt(prompt('Please Insert Number of Columns')))
-// game.initBoard(6, 7)
-// game.insertion(1);
-// game.insertion(1);
-// game.insertion(1);
-// game.insertion(1);
-// game.insertion(1);
-// game.insertion(1);
-// game.insertion(1);
-// game.insertion(1);
-// game.insertion(1);
 
 
