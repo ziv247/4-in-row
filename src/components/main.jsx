@@ -56,7 +56,7 @@ class Main extends Component {
       boardOn: !this.state.boardOn
     });
   };
-  winEvent = (player) => {
+  winEvent = () => {
     this.setState({
       newGame:!this.state.newGame
     })
@@ -73,9 +73,10 @@ class Main extends Component {
         {!this.state.boardOn ? (
           <div>
             <Button
+              
               variant="outline-dark"
               onClick={e => this.onStart(e)}
-              className="mainBtn"
+              className="mainBtn button-style"
             >
               Start Playing
             </Button>
@@ -86,9 +87,10 @@ class Main extends Component {
               style={{ display: "none" }}
             >
               <Button
+                className={'buttons-background'}
                 variant="outline-dark"
                 onClick={e => this.onPlayerInit(1)}
-                className="mainBtn"
+                className="mainBtn button-style"
                 style={{
                   borderBottomleftRadius: "0 !important",
                   borderTopLeftRadius: "0 !important",
@@ -98,9 +100,10 @@ class Main extends Component {
                 Player VS Player
               </Button>
               <Button
+                
                 variant="outline-dark"
                 onClick={e => this.onPlayerInit(2)}
-                className="mainBtn"
+                className="mainBtn button-style"
                 style={{
                   borderTopLeftRadius: "0 !important",
                   borderBottomLeftRadius: "0 !important"
@@ -118,7 +121,7 @@ class Main extends Component {
               <Button
                 variant="outline-dark"
                 onClick={this.handleDefBoard}
-                className="mainBtn"
+                className="mainBtn button-style"
               >
                 Default Board (6X7)
               </Button>
@@ -127,7 +130,7 @@ class Main extends Component {
                 <Dropdown.Toggle
                   variant="outline-dark"
                   id="dropdown-basic"
-                  className="mainBtn"
+                  className="mainBtn button-style"
                   style={{
                     borderBottomLeftRadius: "0",
                     borderTopLeftRadius: "0",
@@ -170,7 +173,7 @@ class Main extends Component {
 
           />
         )}
-        {this.state.newGame && <NewGamePopUp winEvent={this.winEvent}/>}
+        {this.state.newGame && <NewGamePopUp board={this.game.board} winEvent={this.winEvent} handleDefBoard={this.handleDefBoard} winner={this.game.currentPlayer}/>}
       </div>
     );
   }
@@ -187,3 +190,6 @@ const mainDivStyle = {
   alignItems: "center"
 };
 const colorBackground={backgroundImage:'linear-gradient( 109.7deg,  rgba(101,204,184,1) 12.9%, rgba(109,236,185,1) 101.5% )'}
+const buttonBackground={backgroundColor: '#f5d020',
+  backgroundImage: 'linear-gradient(315deg, #f5d020 0%, #f53803 74%)'
+  }

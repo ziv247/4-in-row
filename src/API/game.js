@@ -28,10 +28,11 @@ class Game {
     };
 
     insertion = (rowIndex, colIndex,winEvent) => {
+        console.log(this.currentPlayer)
         const playerKey = this.currentPlayer.key;
         const successfullInsertRow = this.board.move(colIndex, playerKey);
         if (successfullInsertRow) {
-            const isWinStr = this.board.checkForWin(rowIndex, colIndex, playerKey);
+            const isWinStr = this.board.checkForWin(playerKey);
             console.log(isWinStr);
             if (isWinStr) {
                 winEvent(this.currentPlayer)
