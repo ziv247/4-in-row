@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Button } from "react-bootstrap";
 import "../style/square.css";
-import ScoreBoard from "./scoreBoard";
+import ScoreBoard from "./scoreBoard.jsx";
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +30,7 @@ class GameBoard extends React.Component {
           <Row style={{ margin: "auto", maxWidth: "88vh" }} key={rowIndex}>
             {cell.map((innerCell, columnIndex) => {
               let cellColor =
-                innerCell == 0 ? "white" : innerCell == 1 ? "red" : "yellow";
+                innerCell === 0 ? "white" : innerCell === 1 ? "red" : "yellow";
               return (
                 <div
                   key={columnIndex}

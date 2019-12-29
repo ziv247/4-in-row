@@ -1,42 +1,67 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 class NewGamePopUp extends React.Component {
+  handleNewGame = e => {
+    const { board } = this.props;
+    if (e.target.value === "no") {
+      this.props.handleDefBoard();
+      this.props.winEvent();
+    } else {
+      for (let i = 0; i < board.board.length; i++) {
+        for (let j = 0; j < board.board[0].length; j++) {
+          if (board.board[i][j] !== 0) {
+            board.board[i][j] = 0;
+          } else {
+            continue;
+          }
+        }
+      }
+      this.props.winEvent();
+    }
+  };
   render() {
-    const { handleNewGame, winner } = this.props;
+    const { winner } = this.props;
     return (
-      <div style={newGameWrapperStyle}>
-        <h1 style={{ textAlign: "center" }}>Game Over ! </h1>
-        <form action="">
-          <h2>{`The Winner Is ${winner.name}!`}</h2>
-          <h3 style={{ marginBottom: "15px" }}>
+      <Modal.Dialog style={newGameWrapperStyle}>
+        <Modal.Header style={{ textAlign: "center" }} closeButton>
+          <Modal.Title>Game Over !</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <h3>{`Player ${winner.key} has won this game!`}</h3>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <h4 style={{ marginBottom: "15px" }}>
             Would you like to play another game?
-          </h3>
+          </h4>
           <div
             style={{
               display: "flex",
               justifyContent: "space-around",
-              marginBottom: "15px"
+              marginBottom: "15px",
+              width: "100%"
             }}
           >
             <Button
+              onClick={this.handleNewGame}
               value="yes"
               variant="secondary"
               size="sm"
-              onClick={() => handleNewGame(true)}
             >
               Yes
             </Button>
             <Button
+              onClick={this.handleNewGame}
               value="no"
               variant="secondary"
               size="sm"
-              onClick={() => handleNewGame(false)}
             >
               No
             </Button>
           </div>
-        </form>
-      </div>
+        </Modal.Footer>
+      </Modal.Dialog>
     );
   }
 }

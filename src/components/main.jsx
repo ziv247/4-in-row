@@ -4,7 +4,6 @@ import { Dropdown } from "react-bootstrap";
 import GameBoard from "./gameBoard.jsx";
 import "../style/style.css";
 import Game from "./../API/game";
-import { Player } from "../API/player";
 import NewGamePopUp from "./newGame.jsx";
 
 class Main extends Component {
@@ -27,19 +26,11 @@ class Main extends Component {
   };
 
   onPlayerInit = key => {
-    console.log(key);
     this.chooseNumOfPlayers.current.style.display = "none";
     this.buildBoardBtn.current.style.display = "inline-flex";
-    switch (key) {
-      case 1:
-        this.game.setPlayers(1);
-        break;
-      case 2:
-        this.game.setPlayers(2);
-        break;
-      default:
-        break;
-    }
+
+    this.game.setPlayers(key);
+
     this.setState({ currentPlayer: this.game.currentPlayer });
   };
 
@@ -59,9 +50,7 @@ class Main extends Component {
       boardOn: !this.state.boardOn
     });
   };
-
   winEvent = player => {
-    this.game.resetGame();
     this.setState({
       winPlayer: player
     });
@@ -97,7 +86,7 @@ class Main extends Component {
             <Button
               variant="outline-dark"
               onClick={e => this.onStart(e)}
-              className="mainBtn"
+              className="mainBtn button-style"
             >
               Start Playing
             </Button>
@@ -110,7 +99,7 @@ class Main extends Component {
               <Button
                 variant="outline-dark"
                 onClick={e => this.onPlayerInit(2)}
-                className="mainBtn"
+                className="mainBtn button-style"
                 style={{
                   borderBottomleftRadius: "0 !important",
                   borderTopLeftRadius: "0 !important",
@@ -122,7 +111,7 @@ class Main extends Component {
               <Button
                 variant="outline-dark"
                 onClick={e => this.onPlayerInit(1)}
-                className="mainBtn"
+                className="mainBtn button-style"
                 style={{
                   borderTopLeftRadius: "0 !important",
                   borderBottomLeftRadius: "0 !important"
@@ -140,7 +129,7 @@ class Main extends Component {
               <Button
                 variant="outline-dark"
                 onClick={this.handleDefBoard}
-                className="mainBtn"
+                className="mainBtn button-style"
               >
                 Default Board (6X7)
               </Button>
@@ -149,7 +138,7 @@ class Main extends Component {
                 <Dropdown.Toggle
                   variant="outline-dark"
                   id="dropdown-basic"
-                  className="mainBtn"
+                  className="mainBtn button-style"
                   style={{
                     borderBottomLeftRadius: "0",
                     borderTopLeftRadius: "0",
@@ -191,10 +180,12 @@ class Main extends Component {
             handleDefBoard={this.handleDefBoard}
           />
         )}
-        {this.state.winPlayer && (
+        {this.state.newGame && (
           <NewGamePopUp
-            handleNewGame={this.handleNewGame}
-            winner={this.state.winPlayer}
+            board={this.game.board}
+            winEvent={this.winEvent}
+            handleDefBoard={this.handleDefBoard}
+            winner={this.game.currentPlayer}
           />
         )}
       </div>
@@ -206,12 +197,6 @@ export default Main;
 
 //styling
 
-const mainDivStyle = {
-  height: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
 const colorBackground = {
   backgroundImage:
     "linear-gradient( 109.7deg,  rgba(101,204,184,1) 12.9%, rgba(109,236,185,1) 101.5% )"

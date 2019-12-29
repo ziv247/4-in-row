@@ -11,7 +11,7 @@ class Game {
     }
 
     setPlayers = (numOfPlayers) => {
-        if (numOfPlayers == 1) {
+        if (numOfPlayers === 1) {
             this.player1 = new Player(1);
             this.player2 = new ComputerPlayer(2);
         } else {
@@ -34,7 +34,6 @@ class Game {
     }
 
     insertion = (colIndex, winEvent) => {
-        console.log(this.currentPlayer)
         let playerKey = this.currentPlayer.key;
         const successfullInsertRow = this.boardManager.move(colIndex, playerKey);
         if (successfullInsertRow) {
@@ -42,7 +41,7 @@ class Game {
             if (isWinStr) {
                 winEvent(this.currentPlayer);
             }
-            this.currentPlayer = this.currentPlayer == this.player1 ? this.player2 : this.player1;
+            this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
             if (this.currentPlayer instanceof ComputerPlayer) {
                 this.computerPlay(winEvent);
             }
