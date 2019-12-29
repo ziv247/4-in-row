@@ -51,18 +51,21 @@ class Main extends Component {
       boardOn: !this.state.boardOn
     });
   };
-  winEvent = () => {
-    console.log(this.game.board);
+  winEvent = board => {
+    console.log("winEvent", this.game);
     this.setState({
-      newGame: !this.state.newGame
+      boardOn: !this.state.boardOn,
+      newGame: !this.state.newGame,
+      board: board
     });
+    //  this.board.initBoard()
   };
 
   handleInsert = (rowIndex, colIndex) => {
     if (this.game.insertion(colIndex, this.winEvent)) {
       this.setState({
         currentPlayer: this.game.currentPlayer,
-        board: this.game.boardManager.getBoard()
+        board: this.game.board.getBoard()
       });
     }
   };
@@ -70,7 +73,7 @@ class Main extends Component {
   // handleNewGame = toReset => {
   //   if (toReset) {
   //     this.setState({
-  //       board: this.game.boardManager.getBoard(),
+  //       board: this.game.board.getBoard(),
   //       winPlayer: null
   //     });
   //     console.log(this.state.board);
