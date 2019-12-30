@@ -70,28 +70,15 @@ class Main extends Component {
     }
   };
 
-  // handleNewGame = toReset => {
-  //   if (toReset) {
-  //     this.setState({
-  //       board: this.game.board.getBoard(),
-  //       winPlayer: null
-  //     });
-  //     console.log(this.state.board);
-  //     this.forceUpdate();
-  //   } else {
-  //     window.location.reload();
-  //   }
-  // };
-
   render() {
     return (
       <div className={"mainDiv"}>
         {!this.state.boardOn ? (
           <div>
             <Button
-              variant="outline-dark"
+              variant="outline-info"
               onClick={e => this.onStart(e)}
-              className="mainBtn button-style"
+              className="mainBtn "
             >
               Start Playing
             </Button>
@@ -102,9 +89,9 @@ class Main extends Component {
               style={{ display: "none" }}
             >
               <Button
-                variant="outline-dark"
+                variant="outline-info"
                 onClick={e => this.onPlayerInit(2)}
-                className="mainBtn button-style"
+                className="mainBtn main-headline"
                 style={{
                   borderBottomleftRadius: "0 !important",
                   borderTopLeftRadius: "0 !important",
@@ -114,9 +101,9 @@ class Main extends Component {
                 Player VS Player
               </Button>
               <Button
-                variant="outline-dark"
+                variant="outline-info"
                 onClick={e => this.onPlayerInit(1)}
-                className="mainBtn button-style"
+                className="mainBtn main-headline"
                 style={{
                   borderTopLeftRadius: "0 !important",
                   borderBottomLeftRadius: "0 !important"
@@ -132,18 +119,18 @@ class Main extends Component {
               style={{ display: "none" }}
             >
               <Button
-                variant="outline-dark"
+                variant="outline-info"
                 onClick={this.handleDefBoard}
-                className="mainBtn button-style"
+                className="mainBtn main-headline"
               >
                 Default Board (6X7)
               </Button>
 
               <Dropdown>
                 <Dropdown.Toggle
-                  variant="outline-dark"
+                  variant="outline-info"
                   id="dropdown-basic"
-                  className="mainBtn button-style"
+                  className="mainBtn main-headline"
                   style={{
                     borderBottomLeftRadius: "0",
                     borderTopLeftRadius: "0",
@@ -153,23 +140,27 @@ class Main extends Component {
                   Custom Board
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu style={colorBackground}>
+                <Dropdown.Menu className="popdownWood">
                   <form style={{ textAlign: "center" }} action="">
                     <input
                       id="rowsInput"
                       placeholder="Number of Rows"
                       type="text"
-                      style={colorBackground}
                     />
                     <input
                       id="columnsInput"
-                      style={colorBackground}
                       placeholder="Number of Columns"
                       type="text"
                       className={"my-4"}
                     />
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                      <button onClick={this.handleSubmit} type="submit" />
+                      <button
+                        onClick={this.handleSubmit}
+                        variant="outline-info"
+                        type="submit"
+                      >
+                        Play
+                      </button>
                     </div>
                   </form>
                 </Dropdown.Menu>
@@ -201,8 +192,3 @@ class Main extends Component {
 export default Main;
 
 //styling
-
-const colorBackground = {
-  backgroundImage:
-    "linear-gradient( 109.7deg,  rgba(101,204,184,1) 12.9%, rgba(109,236,185,1) 101.5% )"
-};

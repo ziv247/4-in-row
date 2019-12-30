@@ -3,22 +3,39 @@
   border: 2px solid !important;
   font-weight: 500 !important;
   padding: 8px 16px;
-  /* border-radius: 20px !important; */
-  box-shadow: 0px 0px 1px 1px #343a40 !important;
-}
-
-.mainBtn:hover {
-  box-shadow: inset 0px 0px 1px 1px white !important;
-  z-index: 0 !important;
+  background-image: url("wood_background.jpg");
+  text-shadow: 1px 1px 0px lightgray;
 }
 
 .mainDiv {
-  height: 88vh;
+  height: 79vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.button-style{
-  background-color: #f5d020;
-  background-image: linear-gradient(315deg, #f5d020 0%, #f53803 74%);
+
+.popdownWood {
+  background-image: url("wood_background.jpg");
+  border: 2px solid white;
+}
+
+.resetButtonStyle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-image: url("wood_background.jpg");
+  color: aquamarine;
+}
+
+.playBoard {
+  background-image: url("wood_background.jpg");
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modalBtn {
+  border-width: 2px;
+  font-weight: 678;
+  background-color: rgba(255, 255, 255, 0.2);
 }

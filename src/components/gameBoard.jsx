@@ -17,25 +17,34 @@ class GameBoard extends React.Component {
 
   render() {
     return (
-      <Container style={{ position: "relative" }}>
-        <Button
+      <Container>
+        <button
           onClick={this.props.handleDefBoard}
-          style={resetButtonStyle}
-          as="input"
-          type="reset"
-          defaultValue="Back to Main Menu"
-        />
-        <ScoreBoard />
+          className={"resetButtonStyle"}
+        >
+          Back to Main Menu
+        </button>
+        {/* <ScoreBoard /> */}
         {this.state.matrix.map((cell, rowIndex) => (
-          <Row style={{ margin: "auto", maxWidth: "88vh" }} key={rowIndex}>
+          <Row
+            style={{
+              margin: "auto",
+              maxWidth: "88vh"
+            }}
+            key={rowIndex}
+            className={"playBoard"}
+          >
             {cell.map((innerCell, columnIndex) => {
               let cellColor =
-                innerCell === 0 ? "white" : innerCell === 1 ? "red" : "yellow";
+                innerCell === 0
+                  ? "rgba(101, 204, 184, 1)"
+                  : innerCell === 1
+                  ? "red"
+                  : "yellow";
               return (
                 <div
                   key={columnIndex}
                   style={{
-                    backgroundColor: "black",
                     width: `${100 / cell.length}%`,
                     height: `${100 / cell.length - 2}vw`,
                     maxHeight: `${100 / cell.length - 2}vh`,
@@ -65,9 +74,3 @@ class GameBoard extends React.Component {
   }
 }
 export default GameBoard;
-
-const resetButtonStyle = {
-  position: "absolute",
-  top: "-20%",
-  right: "2%"
-};

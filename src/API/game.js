@@ -40,10 +40,11 @@ class Game {
             const isWinStr = this.board.checkForWin(playerKey);
             if (isWinStr) {
                 winEvent(this.currentPlayer);
-            }
-            this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
-            if (this.currentPlayer instanceof ComputerPlayer) {
-                this.computerPlay(winEvent);
+            } else {
+                this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
+                if (this.currentPlayer instanceof ComputerPlayer) {
+                    this.computerPlay(winEvent);
+                }
             }
             return true;
         }
