@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
 import GameBoard from "./gameBoard.jsx";
-import "../style/style.css";
 import Game from "./../API/game";
 import NewGamePopUp from "./newGame.jsx";
 
@@ -76,7 +75,7 @@ class Main extends Component {
         {!this.state.boardOn ? (
           <div>
             <Button
-              variant="outline-info"
+              variant="outline-secondary"
               onClick={e => this.onStart(e)}
               className="mainBtn "
             >
@@ -89,7 +88,7 @@ class Main extends Component {
               style={{ display: "none" }}
             >
               <Button
-                variant="outline-info"
+                variant="outline-secondary"
                 onClick={e => this.onPlayerInit(2)}
                 className="mainBtn main-headline"
                 style={{
@@ -101,7 +100,7 @@ class Main extends Component {
                 Player VS Player
               </Button>
               <Button
-                variant="outline-info"
+                variant="outline-secondary"
                 onClick={e => this.onPlayerInit(1)}
                 className="mainBtn main-headline"
                 style={{
@@ -119,7 +118,7 @@ class Main extends Component {
               style={{ display: "none" }}
             >
               <Button
-                variant="outline-info"
+                variant="outline-secondary"
                 onClick={this.handleDefBoard}
                 className="mainBtn main-headline"
               >
@@ -128,7 +127,7 @@ class Main extends Component {
 
               <Dropdown>
                 <Dropdown.Toggle
-                  variant="outline-info"
+                  variant="outline-secondary"
                   id="dropdown-basic"
                   className="mainBtn main-headline"
                   style={{
@@ -156,7 +155,7 @@ class Main extends Component {
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <button
                         onClick={this.handleSubmit}
-                        variant="outline-info"
+                        variant="outline-secondary"
                         type="submit"
                       >
                         Play
@@ -169,11 +168,9 @@ class Main extends Component {
           </div>
         ) : (
           <GameBoard
-            player2={this.game.player2}
-            player1={this.game.player1}
+            player={this.game.currentPlayer}
             matrix={this.state.board}
             handleInsert={this.handleInsert}
-            handleDefBoard={this.handleDefBoard}
           />
         )}
         {this.state.newGame && (

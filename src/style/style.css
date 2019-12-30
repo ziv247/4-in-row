@@ -3,8 +3,15 @@
   border: 2px solid !important;
   font-weight: 500 !important;
   padding: 8px 16px;
-  background-image: url("wood_background.jpg");
-  text-shadow: 1px 1px 0px lightgray;
+  background-image: url("./images/wood_background.jpg");
+  /* text-shadow: 1px 1px 0px lightgray; */
+  color: white;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+}
+body {
+  background-image: url("./images/white-wood-wallpaper.jpg");
 }
 
 .mainDiv {
@@ -15,21 +22,48 @@
 }
 
 .popdownWood {
-  background-image: url("wood_background.jpg");
+  background-image: url("./images/wood_background.jpg");
   border: 2px solid white;
 }
 
 .resetButtonStyle {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background-image: url("wood_background.jpg");
-  color: aquamarine;
+  top: 5%;
+  right: 8%;
+  background-image: url("./images/wood_background.jpg");
+
+  font-size: 1.2vw !important;
+  border: 2px solid !important;
+  font-weight: 500 !important;
+
+  color: white;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+.curPlayer {
+  position: absolute;
+  top: 5%;
+  left: 8%;
+  background-image: url("./images/wood_background.jpg");
+  padding: 6px 12px;
+  font-size: 1.2vw !important;
+  border: 2px solid !important;
+  font-weight: 500 !important;
+
+  color: white;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+.curPlayer span {
+  font-size: 1.3vw !important;
 }
 
 .playBoard {
-  background-image: url("wood_background.jpg");
-
+  background-image: url("./images/wood_background.jpg");
+  border-left: 3px solid rgb(121, 85, 66);
+  border-right: 3px solid rgb(121, 85, 66);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,5 +71,24 @@
 .modalBtn {
   border-width: 2px;
   font-weight: 678;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-image: url("./images/white-wood-wallpaper.jpg");
+}
+.playBoard:nth-child(3) {
+  border-top: 3px solid rgb(121, 85, 66);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.playBoard:last-child {
+  border-bottom: 3px solid rgb(121, 85, 66);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.h1Style {
+  font-size: 7vw;
+  width: 100%;
+  color: #795542;
+  -webkit-text-fill-color: #795542; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+  text-transform: capitalize;
 }

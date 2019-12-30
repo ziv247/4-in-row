@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import Game from "./../API/game";
 
 class NewGamePopUp extends React.Component {
   constructor(props) {
@@ -102,12 +101,3 @@ class NewGamePopUp extends React.Component {
   }
 }
 export default NewGamePopUp;
-const newGameWrapperStyle = {
-  boxShadow: "8px 8px 8px 8px",
-  position: "absolute",
-  top: "55px",
-  right: "75px",
-  width: "900px",
-  backgroundColor: "white",
-  zIndex: "1000"
-};

@@ -1,13 +1,14 @@
 import React from "react";
 import { Container, Row, Button } from "react-bootstrap";
 import "../style/square.css";
-import ScoreBoard from "./scoreBoard.jsx";
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props.player);
     this.state = {
       matrix: props.matrix,
-      handleInsert: props.handleInsert
+      handleInsert: props.handleInsert,
+      currentPlayer: props.player
     };
   }
 
@@ -18,13 +19,19 @@ class GameBoard extends React.Component {
   render() {
     return (
       <Container>
-        <button
+        <Button
           onClick={this.props.handleDefBoard}
-          className={"resetButtonStyle"}
+          className={"resetButtonStyle "}
+          variant="outline-secondary"
         >
           Back to Main Menu
-        </button>
-        {/* <ScoreBoard /> */}
+        </Button>
+
+        <div className={"curPlayer "}>
+          Current player:
+          <br />
+          <span>{`${this.state.currentPlayer.name}`}</span>
+        </div>
         {this.state.matrix.map((cell, rowIndex) => (
           <Row
             style={{
@@ -37,10 +44,10 @@ class GameBoard extends React.Component {
             {cell.map((innerCell, columnIndex) => {
               let cellColor =
                 innerCell === 0
-                  ? "rgba(101, 204, 184, 1)"
+                  ? "emptyCell"
                   : innerCell === 1
-                  ? "red"
-                  : "yellow";
+                  ? "p1Token"
+                  : "p2Token";
               return (
                 <div
                   key={columnIndex}
@@ -59,9 +66,9 @@ class GameBoard extends React.Component {
                     <div
                       style={{
                         maxHeight: `${100 / cell.length - 2}vw`,
-                        maxWidth: `${100 / cell.length - 2}vh`,
-                        backgroundColor: cellColor
+                        maxWidth: `${100 / cell.length - 2}vh`
                       }}
+                      className={cellColor}
                     ></div>
                   </div>
                 </div>
