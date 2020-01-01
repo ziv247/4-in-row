@@ -7,7 +7,7 @@ class NewGamePopUp extends React.Component {
     this.board = this.props.board;
   }
   handleNewGame = e => {
-    if (e.target.value === "no") {
+    if (e.target.value === "NO") {
       window.location.reload();
     } else {
       for (let i = 0; i < this.board.board.length; i++) {
@@ -57,46 +57,7 @@ class NewGamePopUp extends React.Component {
         </Modal.Footer>
       </Modal>
 
-      // <Modal.Dialog className="popdownWood">
-      //   <Modal.Header style={{ textAlign: "center" }} closeButton>
-      //     <Modal.Title>Game Over !</Modal.Title>
-      //   </Modal.Header>
-
-      //   <Modal.Body>
-      //     <h3>{`Player ${winner.key} has won this game!`}</h3>
-      //   </Modal.Body>
-
-      //   <Modal.Footer>
-      //     <h4 style={{ marginBottom: "15px" }}>
-      //       Would you like to play another game?
-      //     </h4>
-      //     <div
-      //       style={{
-      //         display: "flex",
-      //         justifyContent: "space-around",
-      //         marginBottom: "15px",
-      //         width: "100%"
-      //       }}
-      //     >
-      //       <Button
-      //         onClick={this.handleNewGame}
-      //         value="yes"
-      //         variant="secondary"
-      //         size="sm"
-      //       >
-      //         Yes
-      //       </Button>
-      //       <Button
-      //         onClick={this.handleNewGame}
-      //         value="no"
-      //         variant="secondary"
-      //         size="sm"
-      //       >
-      //         No
-      //       </Button>
-      //     </div>
-      //   </Modal.Footer>
-      // </Modal.Dialog>
+    
     );
   }
 }
