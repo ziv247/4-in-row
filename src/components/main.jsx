@@ -57,7 +57,6 @@ class Main extends Component {
       newGame: !this.state.newGame,
       board: board
     });
-    //  this.board.initBoard()
   };
 
   handleInsert = (rowIndex, colIndex) => {
@@ -171,6 +170,9 @@ class Main extends Component {
             player={this.game.currentPlayer}
             matrix={this.state.board}
             handleInsert={this.handleInsert}
+            handleDefBoard={this.handleDefBoard}
+            game={this.game}
+
           />
         )}
         {this.state.newGame && (
@@ -188,4 +190,3 @@ class Main extends Component {
 
 export default Main;
 
-//styling

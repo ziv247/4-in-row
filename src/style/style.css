@@ -4,7 +4,6 @@
   font-weight: 500 !important;
   padding: 8px 16px;
   background-image: url("./images/wood_background.jpg");
-  /* text-shadow: 1px 1px 0px lightgray; */
   color: white;
   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
   -webkit-text-stroke-width: 2px;
@@ -12,6 +11,9 @@
 }
 body {
   background-image: url("./images/white-wood-wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .mainDiv {
@@ -48,7 +50,7 @@ body {
   background-image: url("./images/wood_background.jpg");
   padding: 6px 12px;
   font-size: 1.2vw !important;
-  border: 2px solid !important;
+  border: 2px solid ;
   font-weight: 500 !important;
 
   color: white;

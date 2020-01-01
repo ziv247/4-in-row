@@ -4,11 +4,12 @@ import "../style/square.css";
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.player);
+    this.game = props.game;
     this.state = {
       matrix: props.matrix,
       handleInsert: props.handleInsert,
-      currentPlayer: props.player
+      currentPlayer: props.player,
+      handleDefBoard: props.handleDefBoard
     };
   }
 
@@ -17,20 +18,22 @@ class GameBoard extends React.Component {
   };
 
   render() {
+    
     return (
       <Container>
         <Button
-          onClick={this.props.handleDefBoard}
+          onClick={()=>this.state.handleDefBoard()}
           className={"resetButtonStyle "}
           variant="outline-secondary"
         >
           Back to Main Menu
         </Button>
 
-        <div className={"curPlayer "}>
+        <div className={"curPlayer "} style={{borderColor:this.game.currentPlayer.key==1?"darkred":"darkgoldenrod"}}>
           Current player:
           <br />
-          <span>{`${this.state.currentPlayer.name}`}</span>
+          <span >{`${this.game.currentPlayer.name}`}</span>
+          <div></div>
         </div>
         {this.state.matrix.map((cell, rowIndex) => (
           <Row
